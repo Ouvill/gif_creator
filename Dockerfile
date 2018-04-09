@@ -12,6 +12,8 @@ RUN npm install express-generator -g && \
     npm install -g nodemon && \
     npm install -g gulp && \
     npm install canvas
+
+RUN fc-cache -fv
 USER node
 
 EXPOSE 3000
