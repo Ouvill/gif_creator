@@ -43,6 +43,7 @@ function create_onepage(text, font_size, width, height, text_height) {
         // 背景
         ctx.fillStyle = 'rgba(255,255,255,1.0)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // draw_background(ctx, width, height);
     }
     var margin = 2 * font_size
     var cw = canvas.width - margin; // 引いているのはマージン
@@ -92,4 +93,22 @@ function get_drow_height(context, width, height) {
         }
     }
     return height;
+}
+
+function draw_background(ctx, width, height) {
+    // fs.readFile(process.env.NODE_PATH + '/utils/texture.jpg', function (err, data) {
+    //     if (!err) {
+    //         var img = new Image();
+    //         img.src = data;
+    //         ctx.drawImage(img, 0, 0);
+
+    //     } else {
+    //         console.log(err);
+    //     }
+    // })
+
+    var img = new Image();
+    img.src = process.env.NODE_PATH + '/utils/texture.jpg';
+    ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
+
 }
