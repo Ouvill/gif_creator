@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  shi_gif:
+    build: ./
+    image: ouvill/shi_gif
+    restart: always
+    container_name: shi_gif
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      NODE_ENV: production
+      NODE_PATH: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 8080:3000
+    command: "npm install"
