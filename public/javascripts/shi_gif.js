@@ -23,6 +23,10 @@ function save() {
         "delay": delay,
         "repeat": repeat
     });
+
+    var generate_btn = document.getElementById("generate_btn");
+    generate_btn.setAttribute("disabled", "");
+
     xhr.send(json);
 
     xhr.onreadystatechange = function () {
@@ -51,6 +55,8 @@ function save() {
             download_link.appendChild(link_text);
             download_div.appendChild(download_link);
             gif_div.appendChild(download_div);
+
+            generate_btn.removeAttribute("disabled");
 
         }
     }
