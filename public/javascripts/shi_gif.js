@@ -35,18 +35,21 @@ function save() {
 
             var gif_div = document.getElementById("gif_div");
             while (gif_div.firstChild) gif_div.removeChild(gif_div.firstChild);
-            var img = document.createElement("img");
-            img.setAttribute("src", res.url + '?' + new Date().getTime());
-            gif_div.appendChild(img);
+            var iframe = document.createElement("embed");
+            iframe.setAttribute("src", res.url + '?' + new Date().getTime());
+            iframe.setAttribute("class", "col-10 row")
+            gif_div.appendChild(iframe);
 
-
+            var download_div = document.createElement("div");
+            download_div.setAttribute("class", "row");
             var download_link = document.createElement("a")
             download_link.setAttribute("href", res.url);
             download_link.setAttribute("download", "");
-            download_link.setAttribute("class", "btn");
+            download_link.setAttribute("class", "btn btn-primary row");
             var link_text = document.createTextNode("Gif をダウンロードする");
             download_link.appendChild(link_text);
-            gif_div.appendChild(download_link);
+            download_div.appendChild(download_link);
+            gif_div.appendChild(download_div);
 
         }
     }
