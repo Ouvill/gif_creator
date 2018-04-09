@@ -112,3 +112,12 @@ function draw_background(ctx, width, height) {
     ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
 
 }
+
+var fonts = {
+    IPAexGothic: "IPAexGothic",
+    IPAexMincho: "IPAexMincho",
+    HannariMincho: "HannariMincho",
+    KokoroMinchoutai: "KokoroMinchoutai",
+    HarenosoraMincho: "HarenosoraMincho",
+    timemachine_wa: "timemachine wa"
+}
