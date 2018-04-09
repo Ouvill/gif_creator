@@ -3,11 +3,10 @@ var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (text, font_size, delay, width, height, not_repeat) {
-
+    text_gif: function (path, text, font_size, delay, width, height, not_repeat) {
         var encoder = new GIFEncoder(width, height);
         // stream the results as they are available into myanimated.gif
-        encoder.createReadStream().pipe(fs.createWriteStream('myanimated.gif'));
+        encoder.createReadStream().pipe(fs.createWriteStream(path));
         encoder.start();
         if (not_repeat) {
             encoder.setRepeat(-1);
