@@ -2,18 +2,38 @@ version: '2'
 
 services:
 
-  shi_gif:
+  flash_gif_maker:
     build: ./
-    image: ouvill/shi_gif
+    image: ouvill/flash_gif_maker
     restart: always
-    container_name: shi_gif
+    container_name: flash_gif_maker
     user: "node"
     working_dir: /home/node/app
     environment:
       NODE_ENV: production
       NODE_PATH: /home/node/app
+      DB_USER: root
+      DB_NAME: flash_gif_maker_db
+      DB_PASSWORD: HHkGzt9tUVUwKZT8rufgvHqq
     volumes:
       - ./:/home/node/app
     ports:
       - 8080:3000
+    links:
+      - mysql_flash_gif_maker:mysql
+    depends_on:
+      - mysql_flash_gif_maker
     command: "npm install"
+
+  mysql_flash_gif_maker:
+    image: mysql
+    container_name: mysql_flash_gif_maker
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=HHkGzt9tUVUwKZT8rufgvHqq
+      - MYSQL_DATABASE=mysql_flash_gif_maker
+    volumes:
+      - /var/docker/mysql_flash_gif_maker:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306

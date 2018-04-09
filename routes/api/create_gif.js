@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var gif = require('../../utils/create_gif');
 var escape = require('../../utils/string_escape');
+var connection = require('../../utils/mysqlConnection');
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
@@ -28,8 +29,24 @@ router.post('/', function (req, res, next) {
     console.log(delay);
     console.log(repeat);
 
+    // Log
+    console.log("data regist");
+    connection.query('SELECT * FROM posts', function (err, rows) {
+        console.dir(rows);
+    });
+
+    connection.query('INSERT INTO flash_gif_maker_db.posts ( text , font_size , delay ,repeat,font_family ) VALUES ( "' + text + '" , "' + font_size + '" , "' + delay + '" , " ' + repeat + ' ", " ' + font_family + ' "  )', function (err, results) {
+        if (!err) {
+            console.log(err);
+        } else {
+            console.log(results);
+        }
+    });
+
+    // gif generate
     gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family);
 
+    // res
     res.json({ "result": "true", "url": url })
 });
 
