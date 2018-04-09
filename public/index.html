@@ -2,6 +2,15 @@
 <html lang="jp">
 
 <head>
+
+    <!--Twitter Card-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Ouvill" />
+    <meta property="og:url" content="https://flushgif.ouvill.net>" />
+    <meta property="og:title" content="フラッシュ Gif メーカー" />
+    <meta property="og:description" content="ぱっぱと文字が切り替わるGif画像が簡単に作成できるツール" />
+    <meta property="og:image" content="https://flushgif.ouvill.net/images/twitter_card.png" />
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62592304-6"></script>
     <script>
@@ -118,6 +127,11 @@
                 <input type="checkbox" class="form-check-input" id="repeat" checked="check"> 繰り返す
             </label>
         </div>
+        <div class="form-group text-center center-block">
+
+            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
+        </div>
+
 
 
     </main>
