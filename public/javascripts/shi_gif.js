@@ -9,6 +9,7 @@ function save() {
     var font_size = document.getElementById("font_size").value;
     var delay = document.getElementById("delay").value;
     var repeat = document.getElementById("repeat").checked;
+    var font_family = document.getElementById("font_family").value;
 
     repeat ? repeat = 0 : repeat = -1;
 
@@ -21,7 +22,8 @@ function save() {
         "text": text,
         "font_size": font_size,
         "delay": delay,
-        "repeat": repeat
+        "repeat": repeat,
+        "font_family": font_family
     });
 
     var generate_btn = document.getElementById("generate_btn");
