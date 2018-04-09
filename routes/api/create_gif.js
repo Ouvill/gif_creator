@@ -17,7 +17,7 @@ router.post('/', function (req, res, next) {
     var repeat = Number(req.body.repeat);
     var width = 506;
     var height = 253;
-    var name = "sample" + ".gif";
+    var name = req.session.user_id + ".gif";
     var path = root_path + "/public/images/generate/" + name;
     var url = "/images/generate/" + name;
 
