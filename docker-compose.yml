@@ -15,6 +15,10 @@ services:
       DB_USER: root
       DB_NAME: flash_gif_maker_db
       DB_PASSWORD: HHkGzt9tUVUwKZT8rufgvHqq
+      VIRTUAL_PORT: 3000
+      VIRTUAL_HOST: flushgif.ouvill.net
+      LETSENCRYPT_HOST: flushgif.ouvill.net
+      LETSENCRYPT_EMAIL: cait.sith.kingdom@gmail.com
     volumes:
       - ./:/home/node/app
     ports:
@@ -37,3 +41,8 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-network
