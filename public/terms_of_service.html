@@ -43,16 +43,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">Home
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/privacy_policy.html">Privacy Policy
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/privacy_policy.html">Privacy Policy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/terms_of_service.html">Terms of service</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Terms of service
+                        <span class="sr-only">(current)</span>
+                    </a>
                 </li>
 
             </ul>
@@ -73,51 +76,16 @@
 
         <div class="row">
             <div class="col-12">
-                <h2>フラッシュ Gif メーカー</h2>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="example-number-input" class="col-md-2 col-form-label">フォントの大きさ</label>
-            <div class="col-md-10">
-                <input class="form-control" type="number" value="42" id="font_size">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="example-number-input" class="col-md-2 col-form-label">切り替える速度(ms, 0.001秒単位)</label>
-            <div class="col-md-10">
-                <input class="form-control" type="number" value="100" id="delay">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="font_family" class="col-md-2 col-form-label">フォント</label>
-            <div class="col-md-10">
-                <select class="custom-select " id="font_family" required="">
-                    <option value="HannariMincho">はんなり明朝</option>
-                    <option value="KokoroMinchoutai">こころ明朝</option>
-                    <option value="IPAexGothic">IPAexゴシック</option>
-                    <option value="IPAexMincho">IPAex明朝</option>
-                    <option value="HarenosoraMincho">はれのそら明朝</option>
-                    <option value="timemachine wa">タイムマシンわ号</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please select a valid country.
+                <h2>利用規約とか</h2>
+                <div class="my-2">
+                    <h3>フラッシュ Gif メーカーとは</h3>
+                    <p>数行のテキストだけを入力するだけで、文字がパッパと切り替わる Gif が作成できるツールです。</p>
+                    <p>本ツールは無料でお使いいただけます。</p>
+                    <p>本ツールで作成した作品は SNS などで公開していただいたりしてかまいません。</p>
+                    <p>本ツールを使用し、作成した作品に関するあらゆるトラブルに関し、当サイト管理人は責任をおいません。</p>
                 </div>
             </div>
         </div>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" id="repeat" checked="check"> 繰り返す
-            </label>
-        </div>
-
-        <div class="text-center center-block" id="gif_div"></div>
-
-        <div class="form-group text-center center-block">
-
-            <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea"></textarea>
-            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
-        </div>
-
     </main>
 
     <div class="row">
