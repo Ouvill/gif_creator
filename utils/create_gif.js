@@ -66,7 +66,6 @@ function create_onepage(text, font_size, width, height, text_height) {
     }
     lines.push(line);
 
-    console.log(lines.length);
     // var text_height = font_size * lines.length;
     var start_height = (height - text_height + 2 * font_size) / 2;
     // var start_height = canvas.height;
@@ -92,6 +91,5 @@ function get_drow_height(context, width, height) {
             }
         }
     }
-    console.log("text height: " + height);
     return height;
 }
