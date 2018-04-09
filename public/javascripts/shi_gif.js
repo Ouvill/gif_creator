@@ -9,7 +9,10 @@ function save() {
     var text = textarea.value;
 
     var font_size = document.getElementById("font_size").value;
-    console.log(text);
+    var delay = document.getElementById("delay").value;
+    var repeat = document.getElementById("repeat").checked;
+
+    repeat ? repeat = 0 : repeat = -1;
 
     var post_url = "/api/create_gif";
 
@@ -19,8 +22,8 @@ function save() {
     var json = JSON.stringify({
         "text": text,
         "font_size": font_size,
-        "delay": 300,
-        "repeat": 0
+        "delay": delay,
+        "repeat": repeat
     });
     xhr.send(json);
 
