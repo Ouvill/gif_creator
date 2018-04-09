@@ -15,6 +15,7 @@ router.post('/', function (req, res, next) {
     var font_size = Number(req.body.font_size);
     var delay = Number(req.body.delay);
     var repeat = Number(req.body.repeat);
+    var font_family = req.body.font_family;
     var width = 506;
     var height = 253;
     var name = req.session.user_id + ".gif";
@@ -26,7 +27,7 @@ router.post('/', function (req, res, next) {
     console.log(delay);
     console.log(repeat);
 
-    gif.text_gif(path, text, font_size, delay, width, height, repeat);
+    gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family);
 
     res.json({ "result": "true", "url": url })
 });

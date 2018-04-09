@@ -3,7 +3,7 @@ var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (path, text, font_size, delay, width, height, not_repeat) {
+    text_gif: function (path, text, font_size, delay, width, height, not_repeat, font_family) {
         var encoder = new GIFEncoder(width, height);
         // stream the results as they are available into myanimated.gif
         encoder.createReadStream().pipe(fs.createWriteStream(path));
@@ -21,9 +21,9 @@ var create = {
 
         for (var i = 0; i < lines.length; i++) {
 
-            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1);
+            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family);
             var text_height = get_drow_height(tmp_ctx, width, height);
-            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height);
+            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family);
 
             encoder.addFrame(one_ctx);
         }
@@ -34,7 +34,7 @@ var create = {
 
 module.exports = create;
 
-function create_onepage(text, font_size, width, height, text_height) {
+function create_onepage(text, font_size, width, height, text_height, font_family) {
     // use node-canvas
     var canvas = new Canvas(width, height);
     var ctx = canvas.getContext('2d');
@@ -50,7 +50,7 @@ function create_onepage(text, font_size, width, height, text_height) {
 
     ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.textAlign = "center"
-    ctx.font = (font_size + 'px IPAexMincho');
+    ctx.font = (font_size + 'px "' + font_family + '"');
 
     var lines = [];
     var linenum = 0;
@@ -111,4 +111,13 @@ function draw_background(ctx, width, height) {
     img.src = process.env.NODE_PATH + '/utils/texture.jpg';
     ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
 
+}
+
+var fonts = {
+    IPAexGothic: "IPAexGothic",
+    IPAexMincho: "IPAexMincho",
+    HannariMincho: "HannariMincho",
+    KokoroMinchoutai: "KokoroMinchoutai",
+    HarenosoraMincho: "HarenosoraMincho",
+    timemachine_wa: "timemachine wa"
 }

@@ -13,6 +13,7 @@ RUN npm install express-generator -g && \
     npm install -g gulp && \
     npm install canvas
 
+COPY ./fonts /usr/share/fonts/
 RUN fc-cache -fv
 USER node
 
