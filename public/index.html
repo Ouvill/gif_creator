@@ -74,8 +74,17 @@
         <div class="row">
             <div class="col-12">
                 <h2>フラッシュ Gif メーカー</h2>
+                <p class="lead">テキストボックスに文字を入力し、Gif生成ボタンを押すと、一行ずつ文字を表示するGif画像が作成されます。</p>
             </div>
         </div>
+        <div class="text-center center-block" id="gif_div"></div>
+
+        <div class="form-group text-center center-block">
+
+            <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea"></textarea>
+            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
+        </div>
+
         <div class="form-group row">
             <label for="example-number-input" class="col-md-2 col-form-label">フォントの大きさ</label>
             <div class="col-md-10">
@@ -110,13 +119,6 @@
             </label>
         </div>
 
-        <div class="text-center center-block" id="gif_div"></div>
-
-        <div class="form-group text-center center-block">
-
-            <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea"></textarea>
-            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
-        </div>
 
     </main>
 
