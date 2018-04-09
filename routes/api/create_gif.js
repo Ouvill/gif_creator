@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var gif = require('../../utils/create_gif');
+var escape = require('../../utils/string_escape');
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
@@ -11,11 +12,11 @@ router.post('/', function (req, res, next) {
 
     var root_path = process.env.NODE_PATH
 
-    var text = req.body.text;
+    var text = escape.escape(req.body.text);
     var font_size = Number(req.body.font_size);
     var delay = Number(req.body.delay);
     var repeat = Number(req.body.repeat);
-    var font_family = req.body.font_family;
+    var font_family = escape.escape(req.body.font_family);
     var width = 506;
     var height = 253;
     var name = req.session.user_id + ".gif";
