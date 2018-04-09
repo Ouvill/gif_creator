@@ -8,7 +8,7 @@ var create = {
         // stream the results as they are available into myanimated.gif
         encoder.createReadStream().pipe(fs.createWriteStream(path));
         encoder.start();
-        if (not_repeat) {
+        if (not_repeat == -1) {
             encoder.setRepeat(-1);
         } else {
             encoder.setRepeat(0);

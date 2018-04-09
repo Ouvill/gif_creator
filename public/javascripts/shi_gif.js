@@ -7,34 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
 function save() {
     var textarea = document.getElementById("shi_textarea");
     var text = textarea.value;
-    var del_last_space = text.replace(/[\r\n ]+$/g, "");
-    var lines = del_last_space.split(/\r\n|\n|\r/g);
 
-    var font_size = 12;
-    var margin = 2 * font_size
-    var text_max_width = canvas.width - margin; // 引いているのはマージン
-    ctx.font = (font_size + 'px IPAexMincho');
-    ctx.textAlign = "left"
+    var post_url = "/api/create_gif";
 
-    var gif = new GIF({
-        workers: 2,
-        quality: 10
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', post_url);
+    xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+    var json = JSON.stringify({
+        "text": text,
+        "font_size": 42,
+        "delay": 300,
+        "repeat": 0
     });
+    xhr.send(json);
 
-    for (var i = 0; i < line.length; i++) {
-        // 背景 白で塗りつぶす
-        ctx.fillStyle = 'rgba(255,255,255,1.0)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //文字
-        ctx.fillText(line, 0, 0, text_max_width);
-        // or a canvas element
-        gif.addFrame(canvas, { delay: 200 });
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var res = JSON.parse(xhr.responseText);
+            console.log("res");
+            console.dir(res);
+        }
     }
-
-    gif.on('finished', function (blob) {
-        window.open(URL.createObjectURL(blob));
-    });
-
-    gif.render();
-
 }
