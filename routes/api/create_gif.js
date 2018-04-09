@@ -12,15 +12,19 @@ router.post('/', function (req, res, next) {
     var root_path = process.env.NODE_PATH
 
     var text = req.body.text;
-    var font_size = req.body.font_size;
-    var delay = req.body.delay;
-    var repeat = req.body.repeat;
+    var font_size = Number(req.body.font_size);
+    var delay = Number(req.body.delay);
+    var repeat = Number(req.body.repeat);
     var width = 506;
     var height = 253;
-    var name = req.session.user_id + ".png";
+    var name = "sample" + ".gif";
     var path = root_path + "/public/images/generate/" + name;
     var url = "/images/generate/" + name;
 
+    console.log(text);
+    console.log(font_size);
+    console.log(delay);
+    console.log(repeat);
 
     gif.text_gif(path, text, font_size, delay, width, height, repeat);
 
