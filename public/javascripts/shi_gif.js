@@ -33,11 +33,21 @@ function save() {
             console.log("res");
             console.dir(res);
 
-            var gif_diff = document.getElementById("gif_div");
-            while (gif_diff.firstChild) gif_diff.removeChild(gif_diff.firstChild);
+            var gif_div = document.getElementById("gif_div");
+            while (gif_div.firstChild) gif_div.removeChild(gif_div.firstChild);
             var img = document.createElement("img");
             img.setAttribute("src", res.url + '?' + new Date().getTime());
-            gif_diff.appendChild(img);
+            gif_div.appendChild(img);
+
+
+            var download_link = document.createElement("a")
+            download_link.setAttribute("href", res.url);
+            download_link.setAttribute("download", "");
+            download_link.setAttribute("class", "btn");
+            var link_text = document.createTextNode("Gif をダウンロードする");
+            download_link.appendChild(link_text);
+            gif_div.appendChild(download_link);
+
         }
     }
 }
