@@ -21,8 +21,6 @@ services:
       LETSENCRYPT_EMAIL: cait.sith.kingdom@gmail.com
     volumes:
       - ./:/home/node/app
-    ports:
-      - 8080:3000
     links:
       - mysql_flash_gif_maker:mysql
     depends_on:
@@ -39,8 +37,6 @@ services:
     volumes:
       - /var/docker/mysql_flash_gif_maker:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
-    ports:
-      - 3306:3306
 
 networks:
   default:
