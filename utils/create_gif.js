@@ -1,12 +1,15 @@
 var fs = require('fs');
+var path = require('path');
 var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (path, text, font_size, delay, width, height, not_repeat, font_family) {
+    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family) {
         var encoder = new GIFEncoder(width, height);
+
+        var gifWriteStream = fs.createWriteStream(dst_path);
         // stream the results as they are available into myanimated.gif
-        encoder.createReadStream().pipe(fs.createWriteStream(path));
+        encoder.createReadStream().pipe(fs.createWriteStream(dst_path));
         encoder.start();
         if (not_repeat == -1) {
             encoder.setRepeat(-1);
@@ -29,6 +32,7 @@ var create = {
         }
 
         encoder.finish;
+
     }
 }
 
