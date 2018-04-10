@@ -7,6 +7,7 @@ var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var download = require('./routes/download');
 var create_api = require('./routes/api/create_gif');
 
 var app = express();
@@ -50,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/download', download);
 app.use('/api/create_gif', create_api);
 
 // catch 404 and forward to error handler

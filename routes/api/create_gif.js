@@ -21,8 +21,10 @@ router.post('/', function (req, res, next) {
     var width = 506;
     var height = 253;
     var name = req.session.user_id + ".gif";
-    var path = root_path + "/public/images/generate/" + name;
-    var url = "/images/generate/" + name;
+    var path = root_path + "/public/images/generate/row/" + name;
+
+    var url = "/images/generate/row/" + name;
+    var download_url = "/download/" + req.session.user_id;
 
     console.log(text);
     console.log(font_size);
@@ -44,10 +46,15 @@ router.post('/', function (req, res, next) {
     });
 
     // gif generate
-    gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family);
+    const gif_create = async () => {
+        await gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family);
+        // await optimize.async(path, optimize_path);
+    }
+
+    gif_create();
 
     // res
-    res.json({ "result": "true", "url": url })
+    res.json({ "result": "true", "url": url, "download_url": download_url });
 });
 
 module.exports = router;
