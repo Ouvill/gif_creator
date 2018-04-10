@@ -4,7 +4,7 @@ var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family) {
+    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_color, background_color) {
         var encoder = new GIFEncoder(width, height);
 
         var gifWriteStream = fs.createWriteStream(dst_path);
@@ -24,9 +24,9 @@ var create = {
 
         for (var i = 0; i < lines.length; i++) {
 
-            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family);
+            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family, font_color, background_color);
             var text_height = get_drow_height(tmp_ctx, width, height);
-            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family);
+            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family, font_color, background_color);
 
             encoder.addFrame(one_ctx);
         }
@@ -38,14 +38,14 @@ var create = {
 
 module.exports = create;
 
-function create_onepage(text, font_size, width, height, text_height, font_family) {
+function create_onepage(text, font_size, width, height, text_height, font_family, font_color, background_color) {
     // use node-canvas
     var canvas = new Canvas(width, height);
     var ctx = canvas.getContext('2d');
 
     if (text_height != -1) {
         // 背景
-        ctx.fillStyle = 'rgba(255,255,255,1.0)';
+        ctx.fillStyle = '#' + background_color;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         // draw_background(ctx, width, height);
     }
@@ -53,7 +53,7 @@ function create_onepage(text, font_size, width, height, text_height, font_family
     var cw = canvas.width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = '#' + font_color;
 
     ctx.textAlign = "center"
 
