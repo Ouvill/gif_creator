@@ -50,10 +50,9 @@ function save() {
             var download_div = document.createElement("div");
             download_div.setAttribute("class", "text-center center-block");
             var download_link = document.createElement("a")
-            download_link.setAttribute("href", res.url);
-            download_link.setAttribute("download", "");
+            download_link.setAttribute("href", res.download_url);
             download_link.setAttribute("class", "btn btn-primary my-2");
-            var link_text = document.createTextNode("Gif をダウンロードする");
+            var link_text = document.createTextNode("Gif のダウンロードページ");
             download_link.appendChild(link_text);
             download_div.appendChild(download_link);
             gif_div.appendChild(download_div);
