@@ -59,6 +59,8 @@ function save() {
 
             generate_btn.removeAttribute("disabled");
 
+        } else {
+            alert("サイトでエラーが発生しているようです。復旧まで暫くお待ちください。作成した文章のバックアップをお願いします");
         }
     }
 }
