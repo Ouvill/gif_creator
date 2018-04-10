@@ -18,6 +18,8 @@ router.post('/', function (req, res, next) {
     var delay = Number(req.body.delay);
     var repeat = Number(req.body.repeat);
     var font_family = escape.escape(req.body.font_family);
+    var font_color = req.body.font_color;
+    var background_color = req.body.background_color;
     var width = 506;
     var height = 253;
     var name = req.session.user_id + ".gif";
@@ -30,6 +32,8 @@ router.post('/', function (req, res, next) {
     console.log(font_size);
     console.log(delay);
     console.log(repeat);
+    console.log("font color :" + font_color);
+    console.log("background_color" + background_color);
 
     // Log
     console.log("data regist");
@@ -47,7 +51,7 @@ router.post('/', function (req, res, next) {
 
     // gif generate
     const gif_create = async () => {
-        await gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family);
+        await gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family, font_color, background_color);
         // await optimize.async(path, optimize_path);
     }
 
