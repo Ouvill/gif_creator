@@ -54,6 +54,10 @@ function create_onepage(text, font_size, width, height, text_height, font_family
 
     ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.textAlign = "center"
+
+    ctx.font = (12 + 'px "' + font_family + '"');
+    ctx.fillText("フラッシュGifメーカー", width / 2, height - 10);
+
     ctx.font = (font_size + 'px "' + font_family + '"');
 
     var lines = [];
