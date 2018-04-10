@@ -12,6 +12,7 @@ RUN npm install express-generator -g && \
     npm install -g nodemon && \
     npm install -g gulp && \
     npm install canvas
+RUN apt-get install -y imagemagick
 
 COPY ./fonts /usr/share/fonts/
 RUN fc-cache -fv
