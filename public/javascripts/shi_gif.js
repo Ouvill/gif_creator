@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
 });
 
 function save() {
@@ -10,6 +11,8 @@ function save() {
     var delay = document.getElementById("delay").value;
     var repeat = document.getElementById("repeat").checked;
     var font_family = document.getElementById("font_family").value;
+    var font_color = document.getElementById("font_color").value;
+    var background_color = document.getElementById("background_color").value;
 
     repeat ? repeat = 0 : repeat = -1;
 
@@ -23,7 +26,9 @@ function save() {
         "font_size": font_size,
         "delay": delay,
         "repeat": repeat,
-        "font_family": font_family
+        "font_family": font_family,
+        "font_color": font_color,
+        "background_color": background_color
     });
 
     var generate_btn = document.getElementById("generate_btn");
