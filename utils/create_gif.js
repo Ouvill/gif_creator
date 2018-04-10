@@ -53,7 +53,7 @@ function create_onepage(text, font_size, width, height, text_height, font_family
     var cw = canvas.width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
-    ctx.fillStyle = '#242424';
+    ctx.fillStyle = '#000000';
 
     ctx.textAlign = "center"
 
