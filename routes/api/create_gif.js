@@ -17,7 +17,7 @@ router.post('/', function (req, res, next) {
 
     var root_path = process.env.NODE_PATH
 
-    var text = escape.escape(req.body.text);
+    var text = req.body.text;
     var font_size = Number(req.body.font_size);
     var delay = Number(req.body.delay);
     var repeat = Number(req.body.repeat);
@@ -41,7 +41,7 @@ router.post('/', function (req, res, next) {
         console.dir(rows);
     });
 
-    connection.query('INSERT INTO flash_gif_maker_db.posts ( text , font_size , delay ,repeat,font_family ) VALUES ( "' + text + '" , "' + font_size + '" , "' + delay + '" , " ' + repeat + ' ", " ' + font_family + ' "  )', function (err, results) {
+    connection.query('INSERT INTO flash_gif_maker_db.posts ( text , font_size , delay ,repeat,font_family ) VALUES ( ? , ? , ? , ? , ? )',[ text, font_size, delay, repeat, font_family] ,function (err, results) {
         if (!err) {
             console.log(err);
         } else {
