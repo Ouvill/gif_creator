@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    var textarea = document.getElementById("shi_textarea");
+    textarea.addEventListener("keydown", function (event) {
+        if (event.ctrlKey) {
+            if (event.key == "Enter") {
+                save();
+            }
+        }
+    })
+
 
 });
 
