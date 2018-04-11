@@ -31,9 +31,10 @@ function save() {
         "background_color": background_color
     });
 
-    var generate_btn = document.getElementById("generate_btn");
-    generate_btn.setAttribute("disabled", "");
-
+    var generate_btn = document.getElementsByClassName("generate_btn");
+    for (var i = 0; i < generate_btn.length; i++) {
+        generate_btn[i].setAttribute("disabled", "");
+    }
     xhr.send(json);
 
     xhr.onreadystatechange = function () {
@@ -42,15 +43,15 @@ function save() {
             console.log("res");
             console.dir(res);
 
-            var gif_div = document.getElementById("gif_div");
+            var gif_container = document.getElementById("gif_container");
             var gif_frame = document.createElement("div");
             gif_frame.setAttribute("class", "text-center center-block");
-            while (gif_div.firstChild) gif_div.removeChild(gif_div.firstChild);
+            while (gif_container.firstChild) gif_container.removeChild(gif_container.firstChild);
             var iframe = document.createElement("embed");
             iframe.setAttribute("src", res.url + '?' + new Date().getTime());
             iframe.setAttribute("class", "col-12 col-md-8")
             gif_frame.appendChild(iframe);
-            gif_div.appendChild(gif_frame);
+            gif_container.appendChild(gif_frame);
 
             var download_div = document.createElement("div");
             download_div.setAttribute("class", "text-center center-block");
@@ -60,10 +61,11 @@ function save() {
             var link_text = document.createTextNode("Gif のダウンロードページ");
             download_link.appendChild(link_text);
             download_div.appendChild(download_link);
-            gif_div.appendChild(download_div);
+            gif_container.appendChild(download_div);
 
-            generate_btn.removeAttribute("disabled");
-
+            for (var i = 0; i < generate_btn.length; i++) {
+                generate_btn.removeAttribute("disabled");
+            }
         }
     }
 }

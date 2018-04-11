@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="text-center center-block" id="gif_div">
+        <div class="text-center center-block" id="gif_container" name="gif_container">
             <div class="text-center center-block">
                 <embed src="/images/sample.gif" class="col-12 col-md-8">
             </div>
@@ -106,7 +106,7 @@
         <div class="form-group text-center center-block">
 
             <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea" placeholder="フラッシュGifメーカーとは&#13;&#10;テキストボックスに&#13;&#10;文字を入力するだけで&#13;&#10;文字がパッパッと切り替わる&#13;&#10;Gif アニメーションを&#13;&#10;作成できる&#13;&#10;サービスです"></textarea>
-            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
+            <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
         </div>
 
         <div class="form-group row">
@@ -171,8 +171,7 @@
             </label>
         </div>
         <div class="form-group text-center center-block">
-
-            <button id="generate_btn" class="btn btn-primary row my-2" onclick="save()">Gif 生成</button>
+            <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
         </div>
     </main>
 
