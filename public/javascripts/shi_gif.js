@@ -1,11 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    var textarea = document.getElementById("shi_textarea");
+    textarea.addEventListener("keydown", function (event) {
+        if (event.ctrlKey) {
+            if (event.key == "Enter") {
+                save();
+            }
+        }
+    })
+
 
 });
 
 function save() {
     var textarea = document.getElementById("shi_textarea");
     var text = textarea.value;
+    if (text == "") {
+        text = "フラッシュGifメーカーとは\nテキストボックスに\n文字を入力するだけで\n文字がパッパッと切り替わる\nGifアニメーションを\n作成できる\nサービスです"
+    }
 
     var font_size = document.getElementById("font_size").value;
     var delay = document.getElementById("delay").value;
@@ -54,6 +66,8 @@ function save() {
             for (var i = 0; i < generate_btn.length; i++) {
                 generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn");
             }
+        } else if (xhr.readyState === 4 && xhr.status !== 200) {
+            alert("なんかエラーっぽい。しばらくしたら回復するかもしれないし……回復しないかもしれない");
         }
     }
 }
