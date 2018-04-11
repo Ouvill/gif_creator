@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mkdir public/images/generate/
+mkdir -p public/images/generate/{row , optimized}
 npm install
 npm start
