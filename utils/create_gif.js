@@ -54,9 +54,16 @@ function create_onepage(text, font_size, width, height, text_height, font_family
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.fillStyle = '#' + font_color;
-    ctx.textAlign = font_align;
+
+
+    // footer
+    ctx.font = (12 + 'px "' + font_family + '"');
+    ctx.textAlign = "center";
+    ctx.fillText("フラッシュGifメーカー", width / 2, height - 10);
+    ctx.font = (font_size + 'px "' + font_family + '"');
 
     // font align
+    ctx.textAlign = font_align;
     var start_x;
     if (font_align == "center") {
         start_x = width / 2;
@@ -66,11 +73,6 @@ function create_onepage(text, font_size, width, height, text_height, font_family
         start_x = width - font_size;
     }
 
-    // footer
-    ctx.font = (12 + 'px "' + font_family + '"');
-    ctx.fillText("フラッシュGifメーカー", width / 2, height - 10);
-
-    ctx.font = (font_size + 'px "' + font_family + '"');
 
     // 行数を測る
     var lines = [];
