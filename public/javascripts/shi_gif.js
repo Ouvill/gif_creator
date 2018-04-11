@@ -7,9 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 save();
             }
         }
-    })
-
-
+    });
 });
 
 function save() {
