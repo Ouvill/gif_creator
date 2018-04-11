@@ -4,7 +4,7 @@ var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_color, background_color) {
+    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color) {
         var encoder = new GIFEncoder(width, height);
 
         var gifWriteStream = fs.createWriteStream(dst_path);
@@ -24,9 +24,9 @@ var create = {
 
         for (var i = 0; i < lines.length; i++) {
 
-            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family, font_color, background_color);
+            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family, font_align, font_color, background_color);
             var text_height = get_drow_height(tmp_ctx, width, height);
-            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family, font_color, background_color);
+            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family, font_align, font_color, background_color);
 
             encoder.addFrame(one_ctx);
         }
@@ -38,7 +38,7 @@ var create = {
 
 module.exports = create;
 
-function create_onepage(text, font_size, width, height, text_height, font_family, font_color, background_color) {
+function create_onepage(text, font_size, width, height, text_height, font_family, font_align, font_color, background_color) {
     // use node-canvas
     var canvas = new Canvas(width, height);
     var ctx = canvas.getContext('2d');
@@ -54,14 +54,25 @@ function create_onepage(text, font_size, width, height, text_height, font_family
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.fillStyle = '#' + font_color;
+    ctx.textAlign = font_align;
 
-    ctx.textAlign = "center"
+    // font align
+    var start_x;
+    if (font_align == "center") {
+        start_x = width / 2;
+    } else if (font_align == "left") {
+        start_x = font_size;
+    } else if (font_align == "right") {
+        start_x = width - font_size;
+    }
 
+    // footer
     ctx.font = (12 + 'px "' + font_family + '"');
     ctx.fillText("フラッシュGifメーカー", width / 2, height - 10);
 
     ctx.font = (font_size + 'px "' + font_family + '"');
 
+    // 行数を測る
     var lines = [];
     var linenum = 0;
     var line = ""
@@ -77,11 +88,14 @@ function create_onepage(text, font_size, width, height, text_height, font_family
     }
     lines.push(line);
 
-    // var text_height = font_size * lines.length;
-    var start_height = (height - text_height + 2 * font_size) / 2;
+    //描写
+    var start_height = font_size;
+    if (text_height != -1) {
+        start_height = (height - text_height + 2 * font_size) / 2;
+    }
     // var start_height = canvas.height;
     for (var i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], canvas.width / 2, start_height);
+        ctx.fillText(lines[i], start_x, start_height);
         start_height += font_size;
     }
     return ctx;

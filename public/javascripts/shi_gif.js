@@ -22,11 +22,23 @@ function save() {
     var font_size = document.getElementById("font_size").value;
     var delay = document.getElementById("delay").value;
     var repeat = document.getElementById("repeat").checked;
+    repeat ? repeat = 0 : repeat = -1;
     var font_family = document.getElementById("font_family").value;
     var font_color = document.getElementById("font_color").value;
     var background_color = document.getElementById("background_color").value;
 
-    repeat ? repeat = 0 : repeat = -1;
+
+    var font_align = document.getElementById("font_align").font_align.value;
+    // var font_align_radios = document.getElementsByName("font_align");
+    // var font_align;
+    // for (var i = 0; i < font_align_radios; i++) {
+    //     console.log("font_align_radios" + font_align_radios[i].value);
+    //     if (font_align_radios[i].checked) {
+    //         font_align = font_align_radios[i].value;
+    //         break;
+    //     }
+    // }
+    console.log("font_align" +font_align)
 
     var post_url = "/api/create_gif";
 
@@ -40,7 +52,8 @@ function save() {
         "repeat": repeat,
         "font_family": font_family,
         "font_color": font_color,
-        "background_color": background_color
+        "background_color": background_color,
+        "font_align": font_align
     });
 
     var generate_btn = document.getElementsByClassName("generate_btn");
@@ -57,7 +70,6 @@ function save() {
 
             var gif_image = document.getElementById("gif_image");
             gif_image.setAttribute("src", res.url + '?' + new Date().getTime());
-
 
             var download_link = document.getElementById("download_btn");
             download_link.setAttribute("href", res.download_url);
