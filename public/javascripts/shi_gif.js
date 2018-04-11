@@ -33,7 +33,7 @@ function save() {
 
     var generate_btn = document.getElementsByClassName("generate_btn");
     for (var i = 0; i < generate_btn.length; i++) {
-        generate_btn[i].setAttribute("disabled", "");
+        generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn disabled");
     }
     xhr.send(json);
 
@@ -43,28 +43,16 @@ function save() {
             console.log("res");
             console.dir(res);
 
-            var gif_container = document.getElementById("gif_container");
-            var gif_frame = document.createElement("div");
-            gif_frame.setAttribute("class", "text-center center-block");
-            while (gif_container.firstChild) gif_container.removeChild(gif_container.firstChild);
-            var iframe = document.createElement("embed");
-            iframe.setAttribute("src", res.url + '?' + new Date().getTime());
-            iframe.setAttribute("class", "col-12 col-md-8")
-            gif_frame.appendChild(iframe);
-            gif_container.appendChild(gif_frame);
+            var gif_image = document.getElementById("gif_image");
+            gif_image.setAttribute("src", res.url + '?' + new Date().getTime());
 
-            var download_div = document.createElement("div");
-            download_div.setAttribute("class", "text-center center-block");
-            var download_link = document.createElement("a")
+
+            var download_link = document.getElementById("download_btn");
             download_link.setAttribute("href", res.download_url);
             download_link.setAttribute("class", "btn btn-primary my-2");
-            var link_text = document.createTextNode("Gif のダウンロードページ");
-            download_link.appendChild(link_text);
-            download_div.appendChild(download_link);
-            gif_container.appendChild(download_div);
 
             for (var i = 0; i < generate_btn.length; i++) {
-                generate_btn.removeAttribute("disabled");
+                generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn");
             }
         }
     }
