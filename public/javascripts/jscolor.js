@@ -111,7 +111,7 @@ var jsc = {
 
 	attachEvent : function (el, evnt, func) {
 		if (el.addEventListener) {
-			el.addEventListener(evnt, func, false);
+			el.addEventListener(evnt, func, { passive: false } );
 		} else if (el.attachEvent) {
 			el.attachEvent('on' + evnt, func);
 		}
@@ -855,7 +855,7 @@ var jsc = {
 					break;
 				}
 			};
-			
+
 			paletteObj.elm = vmlContainer;
 			paletteObj.draw = drawFunc;
 		}
@@ -926,7 +926,7 @@ var jsc = {
 				grad.color = color1;
 				grad.color2 = color2;
 			};
-			
+
 			sliderObj.elm = vmlContainer;
 			sliderObj.draw = drawFunc;
 		}
