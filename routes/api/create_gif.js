@@ -6,9 +6,13 @@ var connection = require('../../utils/mysqlConnection');
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
-    if (typeof req.session.user_id === 'undefined') {
+    var user_id;
+    if (typeof req.cookies.user_id === 'undefined') {
+        user_id = getUniqueStr()
         console.log("set id");
-        req.session.user_id = getUniqueStr();
+        res.cookie('user_id', user_id, { maxAge: 1000 * 60 * 60 * 24, httpOnly: false });
+    } else {
+        user_id = req.cookies.user_id;
     }
 
     var root_path = process.env.NODE_PATH
@@ -22,11 +26,11 @@ router.post('/', function (req, res, next) {
     var background_color = req.body.background_color;
     var width = 506;
     var height = 253;
-    var name = req.session.user_id + ".gif";
+    var name = user_id + ".gif";
     var path = root_path + "/public/images/generate/row/" + name;
 
     var url = "/images/generate/row/" + name;
-    var download_url = "/download/" + req.session.user_id;
+    var download_url = "/download/" + user_id;
 
     console.log(text);
     console.log(font_size);
