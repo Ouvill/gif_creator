@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
 function save() {
     var textarea = document.getElementById("shi_textarea");
     var text = textarea.value;
+    if (text == "") {
+        text = "フラッシュGifメーカーとは\nテキストボックスに\n文字を入力するだけで\n文字がパッパッと切り替わる\nGifアニメーションを\n作成できる\nサービスです"
+    }
 
     var font_size = document.getElementById("font_size").value;
     var delay = document.getElementById("delay").value;
