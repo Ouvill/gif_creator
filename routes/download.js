@@ -14,7 +14,7 @@ router.get('/:file_id', function (req, res, next) {
 
     optimize.sync(input_path, dist_path);
     var time = new Date().getTime();
-    res.render('download', { filename: filename, time: time });
+    res.render('download', { "filename": filename, "time": time });
 });
 
 module.exports = router;
