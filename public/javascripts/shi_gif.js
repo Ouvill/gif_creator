@@ -66,6 +66,8 @@ function save() {
             for (var i = 0; i < generate_btn.length; i++) {
                 generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn");
             }
+        } else if (xhr.readyState === 4 && xhr.status !== 200) {
+            alert("なんかエラーっぽい。しばらくしたら回復するかもしれないし……回復しないかもしれない");
         }
     }
 }
