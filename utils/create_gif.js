@@ -22,11 +22,26 @@ var create = {
         var del_last_space = text.replace(/[\r\n ]+$/g, "");
         var lines = del_last_space.split(/\r\n|\n|\r/g);
 
+        // 背景
+        var background_canvas = new Canvas(width, height);
+        var background_ctx = background_canvas.getContext('2d');
+        background_ctx.fillStyle = '#' + background_color;
+        background_ctx.fillRect(0, 0, width, height);
+
+        var text_canvas = new Canvas(width, height);
+        var text_ctx = text_canvas.getContext('2d');
+
+        var output_canvas = new Canvas(width, height);
+        var output_ctx = output_canvas.getContext('2d');
+
         for (var i = 0; i < lines.length; i++) {
 
-            var one_ctx = create_onepage(lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
+            create_onepage(text_ctx, lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
 
-            encoder.addFrame(one_ctx);
+            output_ctx.drawImage(background_canvas, 0, 0);
+            output_ctx.drawImage(text_canvas, 0, 0);
+
+            encoder.addFrame(output_ctx);
         }
 
         encoder.finish;
@@ -36,17 +51,13 @@ var create = {
 
 module.exports = create;
 
-function create_onepage(text, font_size, width, height, font_family, font_align, font_color, background_color) {
+function create_onepage(ctx, text, font_size, width, height, font_family, font_align, font_color, background_color) {
     // use node-canvas
-    var canvas = new Canvas(width, height);
-    var ctx = canvas.getContext('2d');
 
-    // 背景
-    ctx.fillStyle = '#' + background_color;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // draw_background(ctx, width, height);
+    ctx.clearRect(0, 0, width, height);
+
     var margin = 2 * font_size
-    var cw = canvas.width - margin; // 引いているのはマージン
+    var cw = width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.fillStyle = '#' + font_color;
@@ -113,21 +124,9 @@ function get_drow_height(context, width, height) {
 }
 
 function draw_background(ctx, width, height) {
-    // fs.readFile(process.env.NODE_PATH + '/utils/texture.jpg', function (err, data) {
-    //     if (!err) {
-    //         var img = new Image();
-    //         img.src = data;
-    //         ctx.drawImage(img, 0, 0);
-
-    //     } else {
-    //         console.log(err);
-    //     }
-    // })
-
     var img = new Image();
     img.src = process.env.NODE_PATH + '/utils/texture.jpg';
     ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
-
 }
 
 var fonts = {
