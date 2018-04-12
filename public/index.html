@@ -132,37 +132,6 @@
                 <input class="jscolor form-control color_picker" id="background_color" value="FFFFFF">
             </div>
         </div>
-
-        <div class="form-group row">
-            <p class="col-md-3">文字配置</p>
-            <form id="font_align" class="col-md-9 align-middle">
-                <div class="custom-control custom-radio d-inline">
-                    <input id="left" name="font_align" class="custom-control-input" required="" type="radio" value="left">
-                    <label class="custom-control-label" for="left">左寄せ</label>
-                </div>
-                <div class="custom-control custom-radio d-inline">
-                    <input id="center" name="font_align" class="custom-control-input" checked="" required="" type="radio" value="center">
-                    <label class="custom-control-label" for="center">中央寄せ</label>
-                </div>
-                <div class="custom-control custom-radio d-inline">
-                    <input id="right" name="font_align" class="custom-control-input" required="" type="radio" value="right">
-                    <label class="custom-control-label" for="right">右寄せ</label>
-                </div>
-            </form>
-        </div>
-
-        <div class="form-group row">
-            <label for="example-number-input" class="col-md-2 col-form-label">フォントの大きさ</label>
-            <div class="col-md-10">
-                <input class="form-control" type="number" value="32" id="font_size">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="example-number-input" class="col-md-2 col-form-label">切り替える速度(ms, 0.001秒単位)</label>
-            <div class="col-md-10">
-                <input class="form-control" type="number" value="400" id="delay">
-            </div>
-        </div>
         <div class="form-group row">
             <label for="font_family" class="col-md-2 col-form-label">フォント</label>
             <div class="col-md-10">
@@ -191,6 +160,36 @@
                     Please select a valid country.
                 </div>
             </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="example-number-input" class="col-md-2 col-form-label">フォントの大きさ</label>
+            <div class="col-md-10">
+                <input class="form-control" type="number" value="32" id="font_size">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-number-input" class="col-md-2 col-form-label">切り替える速度(ms, 0.001秒単位)</label>
+            <div class="col-md-10">
+                <input class="form-control" type="number" value="400" id="delay">
+            </div>
+        </div>
+        <div class="form-group row">
+            <p class="col-md-3">文字配置</p>
+            <form id="font_align" class="col-md-9 align-middle">
+                <div class="custom-control custom-radio d-inline">
+                    <input id="left" name="font_align" class="custom-control-input" required="" type="radio" value="left">
+                    <label class="custom-control-label" for="left">左寄せ</label>
+                </div>
+                <div class="custom-control custom-radio d-inline">
+                    <input id="center" name="font_align" class="custom-control-input" checked="" required="" type="radio" value="center">
+                    <label class="custom-control-label" for="center">中央寄せ</label>
+                </div>
+                <div class="custom-control custom-radio d-inline">
+                    <input id="right" name="font_align" class="custom-control-input" required="" type="radio" value="right">
+                    <label class="custom-control-label" for="right">右寄せ</label>
+                </div>
+            </form>
         </div>
         <div class="form-check">
             <label class="form-check-label">
