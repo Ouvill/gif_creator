@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "babel src -d libs",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -15,5 +16,9 @@
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react": "^6.24.1"
   }
 }
