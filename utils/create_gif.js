@@ -24,9 +24,7 @@ var create = {
 
         for (var i = 0; i < lines.length; i++) {
 
-            var tmp_ctx = create_onepage(lines[i], font_size, width, height, -1, font_family, font_align, font_color, background_color);
-            var text_height = get_drow_height(tmp_ctx, width, height);
-            var one_ctx = create_onepage(lines[i], font_size, width, height, text_height, font_family, font_align, font_color, background_color);
+            var one_ctx = create_onepage(lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
 
             encoder.addFrame(one_ctx);
         }
@@ -38,23 +36,20 @@ var create = {
 
 module.exports = create;
 
-function create_onepage(text, font_size, width, height, text_height, font_family, font_align, font_color, background_color) {
+function create_onepage(text, font_size, width, height, font_family, font_align, font_color, background_color) {
     // use node-canvas
     var canvas = new Canvas(width, height);
     var ctx = canvas.getContext('2d');
 
-    if (text_height != -1) {
-        // 背景
-        ctx.fillStyle = '#' + background_color;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // draw_background(ctx, width, height);
-    }
+    // 背景
+    ctx.fillStyle = '#' + background_color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // draw_background(ctx, width, height);
     var margin = 2 * font_size
     var cw = canvas.width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.fillStyle = '#' + font_color;
-
 
     // footer
     ctx.font = (12 + 'px "' + font_family + '"');
@@ -91,11 +86,7 @@ function create_onepage(text, font_size, width, height, text_height, font_family
     lines.push(line);
 
     //描写
-    var start_height = font_size;
-    if (text_height != -1) {
-        start_height = (height - text_height + 2 * font_size) / 2;
-    }
-    // var start_height = canvas.height;
+    var start_height = (height + (2 - lines.length) * font_size) / 2;
     for (var i = 0; i < lines.length; i++) {
         ctx.fillText(lines[i], start_x, start_height);
         start_height += font_size;
