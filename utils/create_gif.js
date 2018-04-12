@@ -4,7 +4,7 @@ var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
 var create = {
-    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color) {
+    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id) {
         var encoder = new GIFEncoder(width, height);
 
         var gifWriteStream = fs.createWriteStream(dst_path);
@@ -27,6 +27,7 @@ var create = {
         var background_ctx = background_canvas.getContext('2d');
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
+        draw_background(background_ctx, background_img_id, width, height);
 
         var text_canvas = new Canvas(width, height);
         var text_ctx = text_canvas.getContext('2d');
@@ -123,10 +124,24 @@ function get_drow_height(context, width, height) {
     return height;
 }
 
-function draw_background(ctx, width, height) {
+function draw_background(ctx, img_id, width, height) {
     var img = new Image();
-    img.src = process.env.NODE_PATH + '/utils/texture.jpg';
-    ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
+    var sh;
+    var sw;
+    img.onload = function () {
+        if (img.width > 2 * img.height) {
+            sh = img.height;
+            sw = 2 * img.height;
+        } else {
+            sh = img.width / 2;
+            sw = img.width;
+        }
+
+        ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
+    }
+    if (img.id != 0) {
+        img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + images[img_id];
+    }
 }
 
 var fonts = {
