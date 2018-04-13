@@ -5,13 +5,13 @@ var Canvas = require('canvas')
     , Image = Canvas.Image
 var img_list = require('./img_list');
 
-var create = {
+const create = {
     multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id , multiline) {
-        var encoder = new GIFEncoder(width, height);
+        let encoder = new GIFEncoder(width, height);
 
-        var gifWriteStream = fs.createWriteStream(dst_path);
+        let gifWriteStream = fs.createWriteStream(dst_path);
         // stream the results as they are available into myanimated.gif
-        encoder.createReadStream().pipe(fs.createWriteStream(dst_path));
+        encoder.createReadStream().pipe(gifWriteStream);
         encoder.start();
         if (not_repeat == -1) {
             encoder.setRepeat(-1);
@@ -23,28 +23,28 @@ var create = {
 
 
         // 背景
-        var background_canvas = new Canvas(width, height);
-        var background_ctx = background_canvas.getContext('2d');
+        let background_canvas = new Canvas(width, height);
+        let background_ctx = background_canvas.getContext('2d');
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
         console.log("background_img_id:" + background_img_id);
         draw_background(background_ctx, background_img_id, width, height);
 
-        var text_canvas = new Canvas(width, height);
-        var text_ctx = text_canvas.getContext('2d');
+        let text_canvas = new Canvas(width, height);
+        let text_ctx = text_canvas.getContext('2d');
 
-        var output_canvas = new Canvas(width, height);
-        var output_ctx = output_canvas.getContext('2d');
+        let output_canvas = new Canvas(width, height);
+        let output_ctx = output_canvas.getContext('2d');
 
-
+        let lines = [];
         if (multiline) {
-            var reg = new RegExp("\n?===\n?", "g")
-            var lines = text.split(reg);
+            let reg = new RegExp("\n?===\n?", "g")
+            lines = text.split(reg);
         } else {
-            var lines = text.split(/\r\n|\n|\r/g);
+            lines = text.split(/\r\n|\n|\r/g);
         }
         console.dir(lines);
-        for (var i = 0; i < lines.length; i++) {
+        for (let i = 0; i < lines.length; i++) {
 
             create_onepage(text_ctx, lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
 
@@ -56,7 +56,13 @@ var create = {
 
         encoder.finish;
 
-    },
+        background_canvas = null;
+        text_canvas = null;
+        output_canvas = null;
+        encoder = null;
+
+
+    }
 
 }
 
@@ -67,8 +73,8 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 
     ctx.clearRect(0, 0, width, height);
 
-    var margin = 4 * font_size
-    var cw = width - margin; // 引いているのはマージン
+    let margin = 4 * font_size
+    let cw = width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
     ctx.fillStyle = '#' + font_color;
@@ -81,7 +87,7 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 
     // font align
     ctx.textAlign = font_align;
-    var start_x;
+    let start_x;
     if (font_align == "center") {
         start_x = width / 2;
     } else if (font_align == "left") {
@@ -92,18 +98,18 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 
 
     // 行数を測る
-    var lines = [];
-    var linenum = 0;
-    var line = ""
-    var char_array = text.split("");
-    for (var i = 0; i < char_array.length; i++) {
+    let lines = [];
+    let linenum = 0;
+    let line = ""
+    let char_array = text.split("");
+    for (let i = 0; i < char_array.length; i++) {
         if (char_array[i] == "\n") {
             lines[linenum] = line;
             line = ""
             linenum++;
         } else {
             line += char_array[i];
-            var text_width = ctx.measureText(line).width;
+            let text_width = ctx.measureText(line).width;
             if (cw < text_width) {
                 lines[linenum] = line;
                 line = "";
@@ -115,8 +121,8 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
     lines.push(line);
 
     //描写
-    var start_height = (height + (2 - lines.length) * font_size) / 2;
-    for (var i = 0; i < lines.length; i++) {
+    let start_height = (height + (2 - lines.length) * font_size) / 2;
+    for (let i = 0; i < lines.length; i++) {
         ctx.fillText(lines[i], start_x, start_height);
         start_height += font_size;
     }
@@ -124,10 +130,10 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 }
 
 function get_drow_height(context, width, height) {
-    var pixels = context.getImageData(0, 0, width, height);
-    var data = pixels.data;
-    var height = 0;
-    var currentRow = -1;
+    let pixels = context.getImageData(0, 0, width, height);
+    let data = pixels.data;
+    let height = 0;
+    let currentRow = -1;
     for (var i = 0, len = data.length; i < len; i += 4) {
         var r = data[i], g = data[i + 1], b = data[i + 2], alpha = data[i + 3];
         if (alpha > 0) {
@@ -142,9 +148,11 @@ function get_drow_height(context, width, height) {
 }
 
 function draw_background(ctx, img_id, width, height) {
-    var img = new Image();
-    var sh;
-    var sw;
+    let img = new Image();
+    let sh;
+    let sw;
+
+
     img.onload = function () {
         if (img.width > 2 * img.height) {
             sh = img.height;
@@ -155,13 +163,15 @@ function draw_background(ctx, img_id, width, height) {
         }
 
         ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
+
+        img = null;
     }
     if (img_id != 0) {
         img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[img_id].filename;
     }
 }
 
-var fonts = {
+let fonts = {
     IPAexGothic: "IPAexGothic",
     IPAexMincho: "IPAexMincho",
     HannariMincho: "HannariMincho",
