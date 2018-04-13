@@ -206,25 +206,34 @@
         <input type="checkbox" class="form-check-input" id="repeat" checked="check"> 繰り返す
       </label>
     </div>
+
+    <!-- 背景画像 -->
+    <div class="row my-2">背景画像設定</div>
+    <div class="row">
+      <form id="background_form" class="form-inline">
+        <%  img_list.forEach(function( img_item , index) { %>
+          <div class="form-group d-block mx-2 my-2">
+            <div class="">
+              <label for="background_<%= index%>" class="radio-inline">
+              <input type="radio" name="background_img" id="background_<%= index%>" value="<%=index %>">
+                <%= img_item.name %>
+              </label>
+            </div>
+            <div>
+              <label for="background_<%= index%>">
+                <img src="/images/backgrounds/thumbnails/<%= img_item.filename %> "></img>
+              </label>
+            </div>
+          </div>
+          <% }); %>
+      </form>
+    </div>
+
     <div class="form-group text-center center-block">
       <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
     </div>
 
-    <div class="row">
-      <form name="background">
-        <%  img_list.forEach(function( img_item , index) { %>
-          <div class="col-3">
-            <input type="radio" name="background_img" id="background_<%= index%>" value="<%=index %>">
-            <label for="background_<%= index%>" >
-              <p><%= img_item.name %></p>
-              <p>
-              <img src="/images/backgrounds/thumbnails/<%= img_item.filename %> " ></img>
-              </p>
-            </label>
-          </div>
-        <% }); %>
-      </form>
-    </div>
+
 
   </main>
 
