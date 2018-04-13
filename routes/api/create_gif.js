@@ -28,6 +28,8 @@ router.post('/', function (req, res, next) {
     var background_img_id = req.body.background_img_id;
     var high_resolution = req.body.high_resolution;
     var multiline = req.body.multiline;
+    var del_last_space = req.body.del_last_space;
+
     var width = 512;
     var height = 256;
 
@@ -37,9 +39,9 @@ router.post('/', function (req, res, next) {
         height = 512;
     }
 
-    // if (del_last_space) {
-    //     text = text.replace(/[\r\n ]+$/g, "");
-    // }
+    if (del_last_space) {
+        text = text.replace(/[\r\n ]+$/g, "");
+    }
 
     var name = user_id + ".gif";
     var path = root_path + "/public/images/generate/row/" + name;
