@@ -163,6 +163,8 @@ function draw_background(ctx, img_id, width, height) {
         }
 
         ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
+
+        img = null;
     }
     if (img_id != 0) {
         img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[img_id].filename;
