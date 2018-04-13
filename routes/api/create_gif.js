@@ -66,12 +66,8 @@ router.post('/', function (req, res, next) {
     });
 
     // gif generate
-    const gif_create = async () => {
-        await gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id, multiline);
+    gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id, multiline);
         // await optimize.async(path, optimize_path);
-    }
-
-    gif_create();
 
     // res
     res.json({ "result": "true", "url": url, "download_url": download_url });
