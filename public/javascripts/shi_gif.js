@@ -21,21 +21,13 @@ function save() {
     var delay = document.getElementById("delay").value;
     var repeat = document.getElementById("repeat").checked;
     repeat ? repeat = 0 : repeat = -1;
+    var high_resolution = document.getElementById("high_resolution").checked;
     var font_family = document.getElementById("font_family").value;
     var font_color = document.getElementById("font_color").value;
     var background_color = document.getElementById("background_color").value;
-
-
     var font_align = document.getElementById("font_align").font_align.value;
-    // var font_align_radios = document.getElementsByName("font_align");
-    // var font_align;
-    // for (var i = 0; i < font_align_radios; i++) {
-    //     console.log("font_align_radios" + font_align_radios[i].value);
-    //     if (font_align_radios[i].checked) {
-    //         font_align = font_align_radios[i].value;
-    //         break;
-    //     }
-    // }
+    var background_img_id = document.getElementById("background_form").background_img.value
+
     console.log("font_align" +font_align)
 
     var post_url = "/api/create_gif";
@@ -51,7 +43,9 @@ function save() {
         "font_family": font_family,
         "font_color": font_color,
         "background_color": background_color,
-        "font_align": font_align
+        "font_align": font_align,
+        "background_img_id": background_img_id,
+        "high_resolution": high_resolution
     });
 
     var generate_btn = document.getElementsByClassName("generate_btn");

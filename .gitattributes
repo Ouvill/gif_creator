@@ -1,0 +1,2 @@
+public/images/backgrounds/*.jpg filter=lfs diff=lfs merge=lfs -text
+public/images/backgrounds/*.png filter=lfs diff=lfs merge=lfs -text
