@@ -6,7 +6,7 @@ var Canvas = require('canvas')
 var img_list = require('./img_list');
 
 var create = {
-    text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id) {
+    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id , multiline) {
         var encoder = new GIFEncoder(width, height);
 
         var gifWriteStream = fs.createWriteStream(dst_path);
@@ -21,8 +21,6 @@ var create = {
         encoder.setDelay(delay);  // frame delay in ms
         encoder.setQuality(10); // image quality. 10 is default.
 
-        var del_last_space = text.replace(/[\r\n ]+$/g, "");
-        var lines = del_last_space.split(/\r\n|\n|\r/g);
 
         // 背景
         var background_canvas = new Canvas(width, height);
@@ -38,6 +36,14 @@ var create = {
         var output_canvas = new Canvas(width, height);
         var output_ctx = output_canvas.getContext('2d');
 
+
+        if (multiline) {
+            var reg = new RegExp("\n?===\n?", "g")
+            var lines = text.split(reg);
+        } else {
+            var lines = text.split(/\r\n|\n|\r/g);
+        }
+        console.dir(lines);
         for (var i = 0; i < lines.length; i++) {
 
             create_onepage(text_ctx, lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
@@ -50,7 +56,8 @@ var create = {
 
         encoder.finish;
 
-    }
+    },
+
 }
 
 module.exports = create;
@@ -60,7 +67,7 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 
     ctx.clearRect(0, 0, width, height);
 
-    var margin = 2 * font_size
+    var margin = 4 * font_size
     var cw = width - margin; // 引いているのはマージン
 
     // ctx.fillStyle = 'rgba(78,78,78,1.0)';
@@ -90,14 +97,21 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
     var line = ""
     var char_array = text.split("");
     for (var i = 0; i < char_array.length; i++) {
-        line += char_array[i];
-        var text_width = ctx.measureText(line).width;
-        if (cw < text_width) {
+        if (char_array[i] == "\n") {
             lines[linenum] = line;
-            line = "";
+            line = ""
             linenum++;
+        } else {
+            line += char_array[i];
+            var text_width = ctx.measureText(line).width;
+            if (cw < text_width) {
+                lines[linenum] = line;
+                line = "";
+                linenum++;
+            }
         }
     }
+
     lines.push(line);
 
     //描写
