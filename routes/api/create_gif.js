@@ -26,8 +26,16 @@ router.post('/', function (req, res, next) {
     var font_color = req.body.font_color;
     var background_color = req.body.background_color;
     var background_img_id = req.body.background_img_id;
-    var width = 506;
-    var height = 253;
+    var high_resolution = req.body.high_resolution;
+    var width = 512;
+    var height = 256;
+
+    if (high_resolution) {
+        font_size = 2 * font_size;
+        width = 1024;
+        height = 512;
+    }
+
     var name = user_id + ".gif";
     var path = root_path + "/public/images/generate/row/" + name;
 
