@@ -22,6 +22,7 @@ function save() {
     var repeat = document.getElementById("repeat").checked;
     repeat ? repeat = 0 : repeat = -1;
     var high_resolution = document.getElementById("high_resolution").checked;
+    var multiline = document.getElementById("multiline").checked;
     var font_family = document.getElementById("font_family").value;
     var font_color = document.getElementById("font_color").value;
     var background_color = document.getElementById("background_color").value;
@@ -45,7 +46,8 @@ function save() {
         "background_color": background_color,
         "font_align": font_align,
         "background_img_id": background_img_id,
-        "high_resolution": high_resolution
+        "high_resolution": high_resolution,
+        "multiline": multiline
     });
 
     var generate_btn = document.getElementsByClassName("generate_btn");

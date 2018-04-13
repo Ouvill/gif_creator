@@ -201,17 +201,33 @@
         </div>
       </form>
     </div>
+
+    <div class="form-check my-2">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" id="high_resolution"> 高解像度
+      </label>
+    </div>
     <div class="form-check my-2">
       <label class="form-check-label">
         <input type="checkbox" class="form-check-input" id="repeat" checked="check"> GIF画像を繰り返す
       </label>
     </div>
-
     <div class="form-check my-2">
       <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" id="high_resolution" > 高解像度
+        <input type="checkbox" class="form-check-input" id="repeat" checked="check"> テキストエリア末尾の改行を自動的に削除
       </label>
+      <p><small>気づかずに挿入してしまうことがある末尾の改行を消します</small></p>
     </div>
+    <div class="form-check my-2">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" id="multiline"> 複数行モード
+      </label>
+      <p>
+        <small>一行で新しいGifページを作るのではなく、「===」でページを区切ります</small>
+      </p>
+    </div>
+
+
 
 
     <!-- 背景画像 -->
@@ -222,7 +238,7 @@
           <div class="form-group d-block mx-2 my-2">
             <div class="">
               <label for="background_<%= index%>" class="radio-inline">
-              <input type="radio" name="background_img" id="background_<%= index%>" value="<%=index %>">
+                <input type="radio" name="background_img" id="background_<%= index%>" value="<%=index %>">
                 <%= img_item.name %>
               </label>
             </div>
