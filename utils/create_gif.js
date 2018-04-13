@@ -3,6 +3,8 @@ var path = require('path');
 var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
+var img_list = require('./img_list');
+
 var create = {
     text_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id) {
         var encoder = new GIFEncoder(width, height);
@@ -27,6 +29,7 @@ var create = {
         var background_ctx = background_canvas.getContext('2d');
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
+        console.log("background_img_id:" + background_img_id);
         draw_background(background_ctx, background_img_id, width, height);
 
         var text_canvas = new Canvas(width, height);
@@ -139,8 +142,8 @@ function draw_background(ctx, img_id, width, height) {
 
         ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
     }
-    if (img.id != 0) {
-        img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + images[img_id];
+    if (img_id != 0) {
+        img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[img_id].filename;
     }
 }
 

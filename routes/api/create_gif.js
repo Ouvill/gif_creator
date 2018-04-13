@@ -25,10 +25,7 @@ router.post('/', function (req, res, next) {
     var font_align = escape.escape(req.body.font_align);
     var font_color = req.body.font_color;
     var background_color = req.body.background_color;
-    var background_id = "";
-    if (typeof req.body.background_id !== "undefined") {
-        background_id = req.body.background_id;
-    }
+    var background_img_id = req.body.background_img_id;
     var width = 506;
     var height = 253;
     var name = user_id + ".gif";
@@ -55,7 +52,7 @@ router.post('/', function (req, res, next) {
 
     // gif generate
     const gif_create = async () => {
-        await gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_id);
+        await gif.text_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id);
         // await optimize.async(path, optimize_path);
     }
 
