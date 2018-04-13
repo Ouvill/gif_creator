@@ -6,7 +6,7 @@ var Canvas = require('canvas')
 var img_list = require('./img_list');
 
 const create = {
-    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id , multiline) {
+    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id, transparent , multiline) {
         let encoder = new GIFEncoder(width, height);
 
         let gifWriteStream = fs.createWriteStream(dst_path);
@@ -28,6 +28,9 @@ const create = {
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
         console.log("background_img_id:" + background_img_id);
+        if (transparent ) {
+            background_ctx.globalAlpha = 0.5;
+        }
         draw_background(background_ctx, background_img_id, width, height);
 
         let text_canvas = new Canvas(width, height);
@@ -36,17 +39,17 @@ const create = {
         let output_canvas = new Canvas(width, height);
         let output_ctx = output_canvas.getContext('2d');
 
-        let lines = [];
+        let paragraph_list = [];
         if (multiline) {
             let reg = new RegExp("\n?===\n?", "g")
-            lines = text.split(reg);
+            paragraph_list = text.split(reg);
         } else {
-            lines = text.split(/\r\n|\n|\r/g);
+            paragraph_list = text.split(/\r\n|\n|\r/g);
         }
-        console.dir(lines);
-        for (let i = 0; i < lines.length; i++) {
+        console.dir(paragraph_list);
+        for (let i = 0; i < paragraph_list.length; i++) {
 
-            create_onepage(text_ctx, lines[i], font_size, width, height, font_family, font_align, font_color, background_color);
+            create_onepage(text_ctx, paragraph_list[i], font_size, width, height, font_family, font_align, font_color, background_color);
 
             output_ctx.drawImage(background_canvas, 0, 0);
             output_ctx.drawImage(text_canvas, 0, 0);
@@ -98,32 +101,32 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
 
 
     // 行数を測る
-    let lines = [];
+    let line_list = [];
     let linenum = 0;
     let line = ""
     let char_array = text.split("");
     for (let i = 0; i < char_array.length; i++) {
         if (char_array[i] == "\n") {
-            lines[linenum] = line;
+            line_list[linenum] = line;
             line = ""
             linenum++;
         } else {
             line += char_array[i];
             let text_width = ctx.measureText(line).width;
             if (cw < text_width) {
-                lines[linenum] = line;
+                line_list[linenum] = line;
                 line = "";
                 linenum++;
             }
         }
     }
 
-    lines.push(line);
+    line_list.push(line);
 
     //描写
-    let start_height = (height + (2 - lines.length) * font_size) / 2;
-    for (let i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], start_x, start_height);
+    let start_height = (height + (2 - line_list.length) * font_size) / 2;
+    for (let i = 0; i < line_list.length; i++) {
+        ctx.fillText(line_list[i], start_x, start_height);
         start_height += font_size;
     }
     return ctx;
