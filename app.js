@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var download = require('./routes/download');
 var create_api = require('./routes/api/create_gif');
+var img_list_api = require('./routes/api/img_list');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/download', download);
 app.use('/api/create_gif', create_api);
+app.use('/api/img_list', img_list_api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
