@@ -1,6 +1,7 @@
 var images = [
     {
-        name: "背景なし"
+        name: "背景なし",
+        filename: "white.png"
     },
     {
         name: "星空",

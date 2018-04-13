@@ -1,11 +1,289 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<!doctype html>
+<html lang="jp">
+
+<head>
+
+  <!--Twitter Card-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Ouvill" />
+  <meta property="og:url" content="https://flashgif.ouvill.net>" />
+  <meta property="og:title" content="フラッシュ Gif メーカー" />
+  <meta property="og:description" content="ぱっぱと文字が切り替わるGif画像が簡単に作成できるツール" />
+  <meta property="og:image" content="https://flashgif.ouvill.net/images/twitter_card.png" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62592304-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-62592304-6');
+  </script>
+
+  <!-- Google Adsense -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-8701177135601771",
+      enable_page_level_ads: true
+    });
+  </script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <title>フラッシュ Gif メーカー | 手軽にGifを作れる</title>
+  <meta contents="文字を入力するだけで、文字がぱっぱっと切り替わるGif画像を作成することができるウェブツール。" name="description">
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script src="/javascripts/react.js"></script>
+
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="#">フラッシュ Gif メーカー</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/howto.html">How to Use
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/privacy_policy.html">Privacy Policy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/terms_of_service.html">Terms of service</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/release_note.html">Release Note
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <main role="main" class="container">
+    <div class="row my-2">
+      <div class="googlead col-md-10 ">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- flash gif maker の広告 -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8701177135601771" data-ad-slot="8520272753" data-ad-format="auto"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+
+
+
+    <div id="react"></div>
+
+    <div class="row">
+      <div class="col-12">
+        <h1>フラッシュ Gif メーカー</h1>
+        <p class="lead">テキストボックスに文字を入力し、Gif生成ボタンを押すと、一行ずつ文字を表示するGif画像が作成されます。</p>
+        <p>
+          <small>作成した Gif をツイッターにアップロードするときは、「Gifのダウンロードページ」へ移動してからダウンロードしてください。このページに表示されているGif画像を右クリック等で保存してもTwitterにアップできない場合があります。</small>
+        </p>
+      </div>
+    </div>
+
+    <div class="text-center center-block" id="gif_container" name="gif_container">
+      <div class="text-center center-block">
+        <embed id="gif_image" src="/images/sample.gif" class="col-12 col-md-8">
+      </div>
+      <div class="text-center center-block">
+        <a id="download_btn" href="/download/162b21bca4339" class="btn btn-primary my-2 disabled">Gif のダウンロードページ</a>
+      </div>
+      <p>
+        <small>お使いの端末によっては、プレビュー画面でGIF画像がコマ落ちしてしまう可能性があります。ダウンロードすると正しく表示できます。</small>
+      </p>
+
+    </div>
+
+
+
+    <div class="form-group text-center center-block">
+
+      <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea" placeholder="フラッシュGifメーカーとは&#13;&#10;テキストボックスに&#13;&#10;文字を入力するだけで&#13;&#10;文字がパッパッと切り替わる&#13;&#10;Gif アニメーションを&#13;&#10;作成できる&#13;&#10;サービスです"></textarea>
+      <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
+    </div>
+
+
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label for="font_color">フォント色</label>
+        <input class="jscolor form-control color_picker" id="font_color" value="000000">
+      </div>
+      <div class="col-md-6">
+        <label for="font_color">背景色</label>
+        <input class="jscolor form-control color_picker" id="background_color" value="FFFFFF">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="font_family" class="col-md-2 col-form-label">フォント</label>
+      <div class="col-md-10">
+        <select class="custom-select " id="font_family" required="">
+          <option value="HannariMincho">はんなり明朝</option>
+          <option value="KokoroMinchoutai">こころ明朝</option>
+          <option value="IPAexGothic">IPAexゴシック</option>
+          <option value="IPAexMincho">IPAex明朝</option>
+          <option value="HarenosoraMincho">はれのそら明朝</option>
+          <option value="timemachine wa">タイムマシンわ号</option>
+          <option value="851tegakizatsu">851手書き雑フォント</option>
+          <option value="851CHIKARA-DZUYOKU-KANA-A">851チカラヅヨク</option>
+          <option value="851CHIKARA-YOWAKU">851チカラヨワク </option>
+          <option value="KodomoRounded">こども丸ゴシック</option>
+          <option value="M+ 1p">M+P Type-1</option>
+          <option value="M+ 2p">M+P Type-2</option>
+          <option value="GenEi Koburi Mincho">源暎こぶり明朝</option>
+          <option value="GenEi Antique v4">源暎アンチック</option>
+          <option value="GenEi LateGo">源暎ラテゴ</option>
+          <option value="GenEi LateMin">源暎ラテミン</option>
+          <option value="GenEi Gothic N">源英ゴシックN</option>
+          <option value="katyoup">花鳥風月</option>
+          <option value="cinecaption">しねきゃぷしょん</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a valid country.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="example-number-input" class="col-md-2 col-form-label">フォントの大きさ</label>
+      <div class="col-md-10">
+        <input class="form-control" type="number" value="32" id="font_size">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-number-input" class="col-md-2 col-form-label">切り替える速度(ms, 0.001秒単位)</label>
+      <div class="col-md-10">
+        <input class="form-control" type="number" value="400" id="delay">
+      </div>
+    </div>
+    <div class="form-group row">
+      <p class="col-md-3">文字配置</p>
+      <form id="font_align" class="col-md-9 align-middle">
+        <div class="custom-control custom-radio d-inline">
+          <input id="left" name="font_align" class="custom-control-input" required="" type="radio" value="left">
+          <label class="custom-control-label" for="left">左寄せ</label>
+        </div>
+        <div class="custom-control custom-radio d-inline">
+          <input id="center" name="font_align" class="custom-control-input" checked="" required="" type="radio" value="center">
+          <label class="custom-control-label" for="center">中央寄せ</label>
+        </div>
+        <div class="custom-control custom-radio d-inline">
+          <input id="right" name="font_align" class="custom-control-input" required="" type="radio" value="right">
+          <label class="custom-control-label" for="right">右寄せ</label>
+        </div>
+      </form>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" id="repeat" checked="check"> 繰り返す
+      </label>
+    </div>
+    <div class="form-group text-center center-block">
+      <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
+    </div>
+
+    <div class="row">
+      <form name="background">
+        <%  img_list.forEach(function( img_item , index) { %>
+          <div class="col-3">
+            <input type="radio" name="background_img" id="background_<%= index%>" value="<%=index %>">
+            <label for="background_<%= index%>" >
+              <p><%= img_item.name %></p>
+              <p>
+              <img src="/images/backgrounds/thumbnails/<%= img_item.filename %> " ></img>
+              </p>
+            </label>
+          </div>
+        <% }); %>
+      </form>
+    </div>
+
+  </main>
+
+
+
+
+
+  <div class="row">
+    <div class="col-6">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- flash gif maker の広告 -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8701177135601771" data-ad-slot="8520272753" data-ad-format="auto"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    <div class="col-6">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- flash gif maker の広告 -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8701177135601771" data-ad-slot="8520272753" data-ad-format="auto"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+
+  <footer class="container text-center center-block">
+    <p>今後も安定してサービスを提供できるようにカンパ（寄付）をいただけるととてもありがたいです。</p>
+    <div class="row text-center center-block">
+      <div class="col-md-4">
+        <a href="https://kampa.me/t/nyq" class="btn btn-warning" target="_blank">Kampa! で送る</a>
+      </div>
+      <div class="col-md-4">
+        <a href="http://amzn.asia/1yDrkfw" class="btn btn-warning" target="_blank">
+          <i class="fab fa-amazon"></i> @Ouvill(おーびる)の欲しいものリスト</a>
+      </div>
+    </div>
+
+    <div class="">
+      <p>Produced by
+        <a href="https://twitter.com/Ouvill">@Ouvill</a>.</p>
+    </div>
+  </footer>
+
+  <!-- jscolor-->
+  <script src="/javascripts/jscolor.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!-- font awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+    crossorigin="anonymous"></script>
+  <script src="/javascripts/shi_gif.js"></script>
+</body>
+
 </html>
