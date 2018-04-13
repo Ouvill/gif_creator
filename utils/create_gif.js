@@ -6,7 +6,7 @@ var Canvas = require('canvas')
 var img_list = require('./img_list');
 
 const create = {
-    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id , multiline) {
+    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id, transparent , multiline) {
         let encoder = new GIFEncoder(width, height);
 
         let gifWriteStream = fs.createWriteStream(dst_path);
@@ -28,6 +28,9 @@ const create = {
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
         console.log("background_img_id:" + background_img_id);
+        if (transparent ) {
+            background_ctx.globalAlpha = 0.5;
+        }
         draw_background(background_ctx, background_img_id, width, height);
 
         let text_canvas = new Canvas(width, height);
