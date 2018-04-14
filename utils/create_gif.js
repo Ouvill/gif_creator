@@ -47,7 +47,7 @@ const create = {
             credit_ctx.fillText(credit.text[0], width / 2, font_size * 1.5);
             credit_ctx.fillText(credit.text[1], width / 2, font_size * 2.2);
         } else if (credit.position == "right_top") {
-            credit_ctx.textAlign = "right" ;
+            credit_ctx.textAlign = "right";
             credit_ctx.fillText(credit.text[0], width - 2 * font_size, font_size * 1.5);
             credit_ctx.fillText(credit.text[1], width - 2 * font_size, font_size * 2.2);
         }
@@ -134,11 +134,13 @@ function create_onepage(ctx, text, font_size, width, height, font_family, font_a
             linenum++;
         } else {
             line += char_array[i];
-            let text_width = ctx.measureText(line).width;
-            if (cw < text_width) {
-                line_list[linenum] = line;
-                line = "";
-                linenum++;
+            if (i < char_array.length - 1) {
+                let text_width = ctx.measureText(line).width;
+                if (cw < text_width) {
+                    line_list[linenum] = line;
+                    line = "";
+                    linenum++;
+                }
             }
         }
     }
