@@ -232,6 +232,16 @@ function save() {
     let font_align = document.getElementById("font_align").font_align.value;
     let background_img_id = document.getElementById("background_form").background_img.value
 
+    let credit = {
+        text:[
+            document.getElementById("credit_0").value,
+            document.getElementById("credit_1").value
+        ],
+        position :document.getElementById("credit_position").credit_position.value
+    };
+
+
+
     console.log("font_align" + font_align)
 
     let post_url = "/api/create_gif";
@@ -252,7 +262,8 @@ function save() {
         "high_resolution": high_resolution,
         "multiline": multiline,
         "del_last_space": del_last_space,
-        "transparent": transparent
+        "transparent": transparent,
+        "credit": credit
     });
 
     let generate_btn = document.getElementsByClassName("generate_btn");

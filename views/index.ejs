@@ -127,10 +127,48 @@
     <div class="form-group text-center center-block">
 
       <textarea class="form-control col-12  my-2" rows="10" id="shi_textarea" placeholder="フラッシュGifメーカーとは&#13;&#10;テキストボックスに&#13;&#10;文字を入力するだけで&#13;&#10;文字がパッパッと切り替わる&#13;&#10;Gif アニメーションを&#13;&#10;作成できる&#13;&#10;サービスです"></textarea>
-      <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
+
+
+
+
+
+    </div>
+
+    <div class="form-group  row">
+      <div class="col-md-6">
+        <label for="credit">付記1 :
+          <small>作者表示とか……タイトルとか</small>
+        </label>
+        <input type="text" class="form-control" id="credit_0" name="credit">
+      </div>
+      <div class="col-md-6">
+        <label for="credit">付記2</label>
+        <input type="text" class="form-control" id="credit_1" name="credit">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <p class="col-md-3">付記配置</p>
+      <form id="credit_position" class="col-md-9 align-middle">
+        <div class="custom-control custom-radio d-inline">
+          <input id="left_top" name="credit_position" class="custom-control-input" required="" type="radio" value="left_top">
+          <label class="custom-control-label" for="left_top">左上</label>
+        </div>
+        <div class="custom-control custom-radio d-inline">
+          <input id="center_top" name="credit_position" class="custom-control-input" checked="" required="" type="radio" value="center_top">
+          <label class="custom-control-label" for="center_top">中央上</label>
+        </div>
+        <div class="custom-control custom-radio d-inline">
+          <input id="right_top" name="credit_position" class="custom-control-input" required="" type="radio" value="right_top">
+          <label class="custom-control-label" for="right_top">右上</label>
+        </div>
+      </form>
     </div>
 
 
+    <div class="form-group text-center center-block">
+      <a href="#gif_container" id="generate_btn" class="btn btn-primary row my-2 generate_btn" onclick="save()">Gif 生成</a>
+    </div>
 
     <div class="form-group row">
       <div class="col-md-6">
@@ -144,7 +182,7 @@
     </div>
     <div class="form-group row">
       <div class="col-12">
-         オススメ背景色
+        オススメ背景色
       </div>
     </div>
     <div class="form-group row">

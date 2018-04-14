@@ -30,6 +30,7 @@ router.post('/', function (req, res, next) {
     var high_resolution = req.body.high_resolution;
     var multiline = req.body.multiline;
     var del_last_space = req.body.del_last_space;
+    var credit = req.body.credit;
 
     var width = 512;
     var height = 256;
@@ -67,7 +68,7 @@ router.post('/', function (req, res, next) {
     });
 
     // gif generate
-    gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id, transparent, multiline);
+    gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id, transparent, multiline, credit);
         // await optimize.async(path, optimize_path);
 
     // res
