@@ -6,7 +6,7 @@ var Canvas = require('canvas')
 var img_list = require('./img_list');
 
 const create = {
-    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id, transparent , multiline) {
+    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id, transparent, multiline, credit) {
         let encoder = new GIFEncoder(width, height);
 
         let gifWriteStream = fs.createWriteStream(dst_path);
@@ -28,11 +28,32 @@ const create = {
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
         console.log("background_img_id:" + background_img_id);
-        if (transparent ) {
+        if (transparent) {
             background_ctx.globalAlpha = 0.5;
         }
         draw_background(background_ctx, background_img_id, width, height);
 
+
+        // credit
+        let credit_canvas = new Canvas(width, height);
+        let credit_ctx = credit_canvas.getContext('2d');
+        credit_ctx.font = ((font_size * 0.7) + 'px "' + font_family + '"');
+        credit_ctx.fillStyle = '#' + font_color;
+        if (credit.position == "left_top") {
+            credit_ctx.fillText(credit.text[0], 2 * font_size, font_size * 1.5);
+            credit_ctx.fillText(credit.text[1], 2 * font_size, font_size * 2.2);
+        } else if (credit.position == "center_top") {
+            credit_ctx.textAlign = "center";
+            credit_ctx.fillText(credit.text[0], width / 2, font_size * 1.5);
+            credit_ctx.fillText(credit.text[1], width / 2, font_size * 2.2);
+        } else if (credit.position == "right_top") {
+            credit_ctx.textAlign = "right" ;
+            credit_ctx.fillText(credit.text[0], width - 2 * font_size, font_size * 1.5);
+            credit_ctx.fillText(credit.text[1], width - 2 * font_size, font_size * 2.2);
+        }
+
+
+        // 本編
         let text_canvas = new Canvas(width, height);
         let text_ctx = text_canvas.getContext('2d');
 
@@ -52,6 +73,7 @@ const create = {
             create_onepage(text_ctx, paragraph_list[i], font_size, width, height, font_family, font_align, font_color, background_color);
 
             output_ctx.drawImage(background_canvas, 0, 0);
+            output_ctx.drawImage(credit_canvas, 0, 0);
             output_ctx.drawImage(text_canvas, 0, 0);
 
             encoder.addFrame(output_ctx);
