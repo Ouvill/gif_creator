@@ -62,7 +62,7 @@ const create = {
 
         let paragraph_list = [];
         if (multiline) {
-            let reg = new RegExp("\n?===\n?", "g")
+            let reg = new RegExp("\n?[=＝]{3,}\n?", "g")
             paragraph_list = text.split(reg);
         } else {
             paragraph_list = text.split(/\r\n|\n|\r/g);
