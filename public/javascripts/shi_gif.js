@@ -9,6 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //ファイルアップロード
+    let file = document.getElementById('lefile')
+    file.addEventListener('change', () => {
+        let filename_area = document.getElementById('filename_area');
+        filename_area.value = file.value;
+    })
+
+
     let font_color = document.getElementById("font_color");
     let complementary_color_div = document.getElementById("complementary_color");
     let triad_color_1_div = document.getElementById("triad_color_1");
