@@ -23,7 +23,7 @@ services:
       - mysql_flash_gif_maker:mysql
     depends_on:
       - mysql_flash_gif_maker
-    command: "npm install"
+    command: "./entrypoint.sh"
 
   mysql_flash_gif_maker:
     image: mysql

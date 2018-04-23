@@ -3,18 +3,12 @@ var router = express.Router();
 var gif = require('../../utils/create_gif');
 var escape = require('../../utils/string_escape');
 var connection = require('../../utils/mysqlConnection');
+var set_id = require('../../utils/set_id');
+var img_list = require('../../utils/img_list');
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
-    var user_id;
-    if (typeof req.cookies.user_id === 'undefined') {
-        user_id = getUniqueStr()
-        console.log("set id");
-        res.cookie('user_id', user_id, { maxAge: 1000 * 60 * 60 * 24, httpOnly: false });
-    } else {
-        user_id = req.cookies.user_id;
-    }
-
+    var user_id = set_id(req, res);
     var root_path = process.env.NODE_PATH
 
     var text = req.body.text;
@@ -53,22 +47,20 @@ router.post('/', function (req, res, next) {
 
     console.dir(req.body);
 
-    // Log
-    console.log("data regist");
-    connection.query('SELECT * FROM posts', function (err, rows) {
-        console.dir(rows);
-    });
+    console.log("userid" + user_id);
+    //background
+    let background_img_path = "";
+    console.log("background_id:" + background_img_id);
+    if (background_img_id == -1) {
+        background_img_path = process.env.NODE_PATH + "/public/images/uploads/" + user_id;
+    } else if (background_img_id == 0) {
 
-    connection.query('INSERT INTO flash_gif_maker_db.posts ( text , font_size , delay ,repeat,font_family ) VALUES ( ? , ? , ? , ? , ? )', [text, font_size, delay, repeat, font_family], function (err, results) {
-        if (!err) {
-            console.log(err);
-        } else {
-            console.log(results);
-        }
-    });
+    } else {
+        background_img_path = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[background_img_id].filename;
 
+    }
     // gif generate
-    gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_id, transparent, multiline, credit);
+    gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_path, transparent, multiline, credit);
         // await optimize.async(path, optimize_path);
 
     // res
@@ -76,9 +68,3 @@ router.post('/', function (req, res, next) {
 });
 
 module.exports = router;
-
-function getUniqueStr(myStrong) {
-    var strong = 1000;
-    if (myStrong) strong = myStrong;
-    return new Date().getTime().toString(16) + Math.floor(strong * Math.random()).toString(16)
-}
