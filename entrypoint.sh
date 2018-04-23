@@ -2,5 +2,5 @@
 
 mkdir -p public/images/generate/{row,optimized}
 npm install
-# npm start
-nodemon node-test
+npm start
+# nodemon node-test
