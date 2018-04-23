@@ -51,17 +51,14 @@ router.post('/', function (req, res, next) {
     //background
     let background_img_path = "";
     console.log("background_id:" + background_img_id);
-    switch (background_img_id) {
-        case -1:
-            background_img_path = process.env.NODE_PATH + "/public/images/uploads/" + user_id;
-            break;
-        case 0:
-            break;
-        default:
-            background_img_path = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[background_img_id].filename;
-            break;
-    }
+    if (background_img_id == -1) {
+        background_img_path = process.env.NODE_PATH + "/public/images/uploads/" + user_id;
+    } else if (background_img_id == 0) {
 
+    } else {
+        background_img_path = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[background_img_id].filename;
+
+    }
     // gif generate
     gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_path, transparent, multiline, credit);
         // await optimize.async(path, optimize_path);

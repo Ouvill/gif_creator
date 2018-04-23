@@ -51,12 +51,12 @@ const create = {
         let background_ctx = background_canvas.getContext('2d');
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
-        if (transparent) {
-            background_ctx.globalAlpha = 0.5;
-        }
-
         console.log("background_img_path:" + background_img_path);
         if (background_img_path != "") {
+            console.log("hihi");
+            if (transparent) {
+                background_ctx.globalAlpha = 0.5;
+            }
             draw_background(background_ctx, background_img_path, width, height);
         }
 
