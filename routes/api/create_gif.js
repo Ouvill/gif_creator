@@ -3,18 +3,11 @@ var router = express.Router();
 var gif = require('../../utils/create_gif');
 var escape = require('../../utils/string_escape');
 var connection = require('../../utils/mysqlConnection');
+var set_id = require('../../utils/set_id');
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
-    var user_id;
-    if (typeof req.cookies.user_id === 'undefined') {
-        user_id = getUniqueStr()
-        console.log("set id");
-        res.cookie('user_id', user_id, { maxAge: 1000 * 60 * 60 * 24, httpOnly: false });
-    } else {
-        user_id = req.cookies.user_id;
-    }
-
+    var user_id = set_id(req, res);
     var root_path = process.env.NODE_PATH
 
     var text = req.body.text;
@@ -76,9 +69,3 @@ router.post('/', function (req, res, next) {
 });
 
 module.exports = router;
-
-function getUniqueStr(myStrong) {
-    var strong = 1000;
-    if (myStrong) strong = myStrong;
-    return new Date().getTime().toString(16) + Math.floor(strong * Math.random()).toString(16)
-}

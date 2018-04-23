@@ -10,11 +10,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //ファイルアップロード
-    let file = document.getElementById('lefile')
+    let file = document.getElementById('lefile');
+    let background_form = document.getElementById("background_form");
     file.addEventListener('change', () => {
         let filename_area = document.getElementById('filename_area');
         filename_area.value = file.value;
-    })
+
+        background_form.background_img.value = "-1";
+
+        let formdata = new FormData(document.getElementById('original_image_form'));
+
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log("hi");
+            }
+        }
+
+        xhr.open("POST", "/api/upload_image", true);
+        xhr.send(formdata);
+    });
+
+    background_form.addEventListener("change", () => {
+        let filename_area = document.getElementById('filename_area');
+        filename_area.value = "";
+        file.value = "";
+    });
 
 
     let font_color = document.getElementById("font_color");
