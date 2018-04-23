@@ -3,10 +3,33 @@ var path = require('path');
 var GIFEncoder = require('gifencoder');
 var Canvas = require('canvas')
     , Image = Canvas.Image
-var img_list = require('./img_list');
+
+
+function draw_background(ctx, filepath, width, height) {
+    console.log("hi");
+    let img = new Image();
+    let sh;
+    let sw;
+
+    img.onload = function () {
+        if (img.width > 2 * img.height) {
+            sh = img.height;
+            sw = 2 * img.height;
+        } else {
+            sh = img.width / 2;
+            sw = img.width;
+        }
+
+        ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
+
+        img = null;
+    }
+
+    img.src = filepath
+}
 
 const create = {
-    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_id, transparent, multiline, credit) {
+    multiline_gif: function (dst_path, text, font_size, delay, width, height, not_repeat, font_family, font_align, font_color, background_color, background_img_path, transparent, multiline, credit) {
         let encoder = new GIFEncoder(width, height);
 
         let gifWriteStream = fs.createWriteStream(dst_path);
@@ -21,22 +44,26 @@ const create = {
         encoder.setDelay(delay);  // frame delay in ms
         encoder.setQuality(10); // image quality. 10 is default.
 
-
+        console.log("background_color:" + background_color);
+        console.log(transparent);
         // 背景
         let background_canvas = new Canvas(width, height);
         let background_ctx = background_canvas.getContext('2d');
         background_ctx.fillStyle = '#' + background_color;
         background_ctx.fillRect(0, 0, width, height);
-        console.log("background_img_id:" + background_img_id);
         if (transparent) {
             background_ctx.globalAlpha = 0.5;
         }
-        draw_background(background_ctx, background_img_id, width, height);
+
+        console.log("background_img_path:" + background_img_path);
+        if (background_img_path != "") {
+            draw_background(background_ctx, background_img_path, width, height);
+        }
 
 
         // credit
         let credit_canvas = new Canvas(width, height);
-        let credit_ctx = credit_canvas.getContext('2d');
+        let credit_ctx = credit_canvas.getContext('2d'); background_img_path
         credit_ctx.font = ((font_size * 0.7) + 'px "' + font_family + '"');
         credit_ctx.fillStyle = '#' + font_color;
         if (credit.position == "left_top") {
@@ -174,29 +201,9 @@ function get_drow_height(context, width, height) {
     return height;
 }
 
-function draw_background(ctx, img_id, width, height) {
-    let img = new Image();
-    let sh;
-    let sw;
 
 
-    img.onload = function () {
-        if (img.width > 2 * img.height) {
-            sh = img.height;
-            sw = 2 * img.height;
-        } else {
-            sh = img.width / 2;
-            sw = img.width;
-        }
 
-        ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
-
-        img = null;
-    }
-    if (img_id != 0) {
-        img.src = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[img_id].filename;
-    }
-}
 
 let fonts = {
     IPAexGothic: "IPAexGothic",
