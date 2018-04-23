@@ -52,6 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
         file.value = "";
     });
 
+    document.addEventListener("beforeunload", function () {
+        let background_form = document.getElementById("background_form");
+        if (background_form.background_img.value == -1 ) {
+            background_form.background_img.value = "0";
+        }
+    });
+
 
     let font_color = document.getElementById("font_color");
     let complementary_color_div = document.getElementById("complementary_color");
@@ -93,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         background_color.style.backgroundColor = "rgb(" + complementary_color_div.rgb.join(',') + ")";
         background_color.value = rgb2color(complementary_color_div.rgb[0], complementary_color_div.rgb[1], complementary_color_div.rgb[2]);
 
-    })
+    });
 });
 
 let rgb2color = (r, g, b) => {
