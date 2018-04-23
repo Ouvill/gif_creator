@@ -6,7 +6,6 @@ var Canvas = require('canvas')
 
 
 function draw_background(ctx, filepath, width, height) {
-    console.log("hi");
     let img = new Image();
     let sh;
     let sw;
@@ -53,7 +52,6 @@ const create = {
         background_ctx.fillRect(0, 0, width, height);
         console.log("background_img_path:" + background_img_path);
         if (background_img_path != "") {
-            console.log("hihi");
             if (transparent) {
                 background_ctx.globalAlpha = 0.5;
             }

@@ -10,20 +10,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //ファイルアップロード
-    let file = document.getElementById('lefile');
+    let file = document.getElementById('hide_file');
     let background_form = document.getElementById("background_form");
     file.addEventListener('change', () => {
         let filename_area = document.getElementById('filename_area');
-        filename_area.value = file.value;
-
+        filename_area.value = file.value.replace(/C:\\fakepath\\/g,"");
         background_form.background_img.value = "-1";
-
         let formdata = new FormData(document.getElementById('original_image_form'));
+
+        let message_box = document.getElementById("original_upload_message");
+        message_box.innerHTML = "アップロード中"
+        // GIF生成ボタン無効化
+        disabled_generate()
 
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log("hi");
+                enable_generate();
+                let res = JSON.parse(xhr.response);
+                console.dir(res);
+                if (res.result == false) {
+                    message_box.innerHTML = "ファイルのアップロードに失敗しました。jpeg または png をサポートしています。";
+                    background_form.background_img.value = "0";
+                    filename_area.value = "";
+                } else {
+                    message_box.innerHTML = "アップロード完了";
+                }
+            } else if (xhr.readyState == 4) {
+                enable_generate();
+                message_box.innerHTML = "ファイルのアップロードに失敗しました。";
             }
         }
 
@@ -295,10 +310,7 @@ function save() {
         "credit": credit
     });
 
-    let generate_btn = document.getElementsByClassName("generate_btn");
-    for (let i = 0; i < generate_btn.length; i++) {
-        generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn disabled");
-    }
+    disabled_generate()
     xhr.send(json);
 
     xhr.onreadystatechange = function () {
@@ -314,11 +326,24 @@ function save() {
             download_link.setAttribute("href", res.download_url);
             download_link.setAttribute("class", "btn btn-primary my-2");
 
-            for (let i = 0; i < generate_btn.length; i++) {
-                generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn");
-            }
+            enable_generate();
+
         } else if (xhr.readyState === 4 && xhr.status !== 200) {
             alert("なんかエラーっぽい。しばらくしたら回復するかもしれないし……回復しないかもしれない");
         }
+    }
+}
+
+function disabled_generate() {
+    let generate_btn = document.getElementsByClassName("generate_btn");
+    for (let i = 0; i < generate_btn.length; i++) {
+        generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn disabled");
+    }
+}
+
+function enable_generate() {
+    let generate_btn = document.getElementsByClassName("generate_btn");
+    for (let i = 0; i < generate_btn.length; i++) {
+        generate_btn[i].setAttribute("class", "btn btn-primary row my-2 generate_btn");
     }
 }

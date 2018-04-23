@@ -294,18 +294,6 @@
     </div>
 
     <div class="row">
-      <form id="original_image_form">
-        <input id="lefile" type="file" style="display:none" name="original_image">
-        <div class="input-group">
-          <input type="text" id="filename_area" class="form-control" placeholder="select file..." onclick="$('input[id=lefile]').click();">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-primary" onclick="$('input[id=lefile]').click();">参照</button>
-          </span>
-        </div>
-      </form>
-    </div>
-
-    <div class="row">
       <form id="background_form" class="form-inline">
         <input type="radio" name="background_img" id="background_-1" value="-1" style="display:none">
         <%  img_list.forEach(function( img_item , index) { %>
@@ -323,6 +311,20 @@
             </div>
           </div>
           <% }); %>
+      </form>
+    </div>
+
+    <div class="row">
+      <p>オリジナル画像を設定する</p>
+      <form id="original_image_form">
+        <input id="hide_file" type="file" style="display:none" name="original_image" accept="image/png, image/jpeg">
+        <div class="input-group">
+          <input type="text" id="filename_area" class="form-control" placeholder="select file..." onclick="$('input[id=hide_file]').click();">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" onclick="$('input[id=hide_file]').click();">参照</button>
+          </span>
+        </div>
+        <div id="original_upload_message"></div>
       </form>
     </div>
 
