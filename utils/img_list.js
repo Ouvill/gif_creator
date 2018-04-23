@@ -4,7 +4,6 @@ var images = [
         filename: "white.png",
         url:"https://flashgif.ouvill.net"
     },
-
     {
         name: "星空",
         filename: "jeremy-thomas-98201-unsplash.jpg"

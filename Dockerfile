@@ -19,5 +19,3 @@ RUN fc-cache -fv
 USER node
 
 EXPOSE 3000
-
-ENTRYPOINT ["/sbin/entrypoint.sh"]
