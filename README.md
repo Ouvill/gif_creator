@@ -61,7 +61,7 @@ localhost:8080 にサーバーが立ち上がります。
 
 ## 作者
 
-(Ouvill)[https://github.com/Ouvill]
+[Ouvill](https://github.com/Ouvill)
 
 ## 製作者のその他制作物
 
