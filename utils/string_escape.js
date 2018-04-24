@@ -16,7 +16,7 @@ module.exports.escape = function (string) {
 module.exports.bash_escape = function (string) {
     if (typeof string !== 'string') {
         return string;
-    } return string.replace(/[&'`"<>]/g, function (match) {
+    } return string.replace(/[&'`"<>;\|\*\?\(\)\[\]!\${}]/g, function (match) {
         return {
             '&': '&amp;',
             "'": '&#x27;',
