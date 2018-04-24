@@ -45,8 +45,6 @@ router.post('/', function (req, res, next) {
     var url = "/images/generate/row/" + name;
     var download_url = "/download/" + user_id;
 
-    console.dir(req.body);
-
     console.log("userid" + user_id);
     //background
     let background_img_path = "";
@@ -59,6 +57,17 @@ router.post('/', function (req, res, next) {
         background_img_path = process.env.NODE_PATH + "/public/images/backgrounds/" + img_list[background_img_id].filename;
 
     }
+
+    //log 記録
+    let data = { text: text, font_size: font_size, delay: delay, repeat: repeat,font_family:font_family }
+    connection.query('INSERT INTO posts set ?', req.body, function (err, results) {
+        if (!err) {
+            console.error( "mysql insert error" + err);
+        } else {
+            console.log("mysql insert");
+        }
+    });
+
     // gif generate
     gif.multiline_gif(path, text, font_size, delay, width, height, repeat, font_family, font_align, font_color, background_color, background_img_path, transparent, multiline, credit);
         // await optimize.async(path, optimize_path);
