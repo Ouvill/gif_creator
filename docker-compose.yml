@@ -13,7 +13,7 @@ services:
       NODE_ENV: production
       NODE_PATH: /home/node/app
       DB_USER: root
-      DB_NAME: mysql_flash_gif_maker
+      DB_NAME: ${MYSQL_DATABASE}
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./:/home/node/app
@@ -30,7 +30,7 @@ services:
     container_name: mysql_flash_gif_maker
     restart: always
     environment:
-      MYSQL_DATABASE: mysql_flash_gif_maker
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - /var/docker/mysql_flash_gif_maker:/var/lib/mysql
