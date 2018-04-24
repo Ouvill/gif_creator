@@ -18,6 +18,14 @@
 ## 使い方
 
 ```
+$ echo MYSQL_ROOT_PASSWORD=${dbで使うパスワード} > .env
+$ docker-compose build
+$ docker-compose up
+```
+
+例
+```
+$ echo MYSQL_ROOT_PASSWORD=password > .env
 $ docker-compose build
 $ docker-compose up
 ```

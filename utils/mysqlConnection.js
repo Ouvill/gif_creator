@@ -4,7 +4,7 @@ var dbConfig = {
     host: 'mysql',
     user: 'root',
     password: process.env.DB_PASSWORD,
-    database: 'flash_gif_maker_db'
+    database: process.env.DB_NAME
 };
 
 var connection = mysql.createConnection(dbConfig);
