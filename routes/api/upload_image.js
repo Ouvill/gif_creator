@@ -3,12 +3,9 @@ var router = express.Router();
 var path = require('path');
 var multer = require('multer');
 var fs = require('fs');
-
+var upload_path = process.env.NODE_PATH + '/public/images/uploads/'
 var storage = multer.diskStorage({
-    destination: process.env.NODE_PATH + '/public/images/uploads',
-    filename: function (req, file, cb) {
-        cb(null, req.cookies.user_id);
-    }
+    destination: upload_path
 })
 
 var upload = multer({ storage: storage})
@@ -33,12 +30,20 @@ router.post('/', upload.single('original_image'), function (req, res, next) {
             message: " only support png or jpeg "
         });
     } else {
-        res.json({
-            result: true,
-            message: " upload successful "
+        fs.rename(req.file.path, upload_path + user_id, (err) => {
+            if (err) {
+                res.json({
+                    result: false,
+                    message: "file upload miss"
+                });
+            } else {
+                res.json({
+                    result: true,
+                    message: " upload successful "
+                });
+            }
         });
     }
-
 });
 
 module.exports = router;
