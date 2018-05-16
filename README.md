@@ -63,10 +63,6 @@ localhost:8080 にサーバーが立ち上がります。
  gitlab-flow で実行しています。
  product ブランチのみ別リポジトリで非公開設定にしています。
 
-## 一週間で開発した分
-
-　一週間で開発した分が分かりやすいように `one_week` タグをつけました。
-
 ## 作者
 
 [Ouvill](https://github.com/Ouvill)
